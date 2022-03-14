@@ -59,6 +59,23 @@ export class Korisnik{
 
 
 
+            d = document.createElement("div");
+            d.className="divNoviKorisnikUsername";
+            host.querySelector(".divNoviKorisnik").appendChild(d);
+
+
+            l = document.createElement("label")
+            l.innerHTML="Korisnicko ime";
+            l.className="lblKorisnickoIme";
+            host.querySelector(".divNoviKorisnikUsername").appendChild(l);
+
+
+            l = document.createElement("label");
+            l.innerHTML=this.username;
+            host.querySelector(".divNoviKorisnikUsername").appendChild(l);
+
+
+
 
 
 
@@ -160,6 +177,7 @@ export class Korisnik{
 
             l=document.createElement("label");
             l.innerHTML=this.email;
+            l.className="lblNoviKorisnikEmail";
             host.querySelector(".divNoviKorisnikEmail").appendChild(l);
 
 

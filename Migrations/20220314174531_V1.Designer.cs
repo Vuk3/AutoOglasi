@@ -10,7 +10,7 @@ using Models;
 namespace Web_Projekat_18036.Migrations
 {
     [DbContext(typeof(AutoOglasiContext))]
-    [Migration("20220310144311_V1")]
+    [Migration("20220314174531_V1")]
     partial class V1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -84,10 +84,22 @@ namespace Web_Projekat_18036.Controllers
                 return BadRequest("Nevalidan telefon");
             }
 
-            Context.Pijace.Add(pijaca);
-            await Context.SaveChangesAsync();
+            try{
 
-            return Ok($"Dodata je pijaca sa ID: {pijaca.ID}.");
+                var probnaPijaca=Context.Pijace.Where(p=>p.naziv==pijaca.naziv).FirstOrDefaultAsync();
+                if(probnaPijaca!=null){
+                    return BadRequest("Pijaca sa datim imenom vec postoji");
+                }
+                Context.Pijace.Add(pijaca);
+                await Context.SaveChangesAsync();
+
+                return Ok($"Dodata je pijaca sa ID: {pijaca.ID}.");
+            }
+            catch(Exception e){
+                return BadRequest(e.Message);
+            }
+
+
         }
 
         [Route("IzmeniPijacu")]
@@ -140,14 +152,14 @@ namespace Web_Projekat_18036.Controllers
             try{
                 var probnaPijaca = await Context.Pijace.FindAsync(id);
                 if (probnaPijaca==null){
-                    return StatusCode(201,"Pijaca ne postoji");
+                    return BadRequest("Pijaca ne postoji");
                 }
 
                 Context.Pijace.Remove(probnaPijaca);
 
                 await Context.SaveChangesAsync();
                 
-                return Ok("Korisnik obrisan");
+                return Ok("Pijaca obrisana");
             }
 
             catch (Exception e){

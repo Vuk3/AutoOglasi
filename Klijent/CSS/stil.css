@@ -356,8 +356,12 @@ button:hover{
     border-radius: 20px;
     opacity: 90%;
     height: fit-content;
-    align-items: center;
+    /* align-items: center; */
     max-width: 50%;
+}
+
+.divNoviAutomobilBrojSasije{
+    align-content: center;
 }
 
 .divNoviOglas{
@@ -365,7 +369,16 @@ button:hover{
     margin-bottom: 20px;
 }
 
-.divNovaPijacaTelefon, .divNovaPijacaLokacija, .divNovaPijacaNaziv, .divNoviKorisnikJMBG, .divNoviKorisnikIme, .divNoviKorisnikPrezime, .divNoviKorisnikGrad, .divNoviKorisnikAdresa, .divNoviKorisnikTelefon, .divNoviKorisnikEmail{
+.lblNoviKorisnikEmail{
+    padding: 0px 15px;
+}
+
+.lblKorisnickoIme{
+    display: flex;
+    text-align: center;
+}
+
+.divNovaPijacaTelefon, .divNovaPijacaLokacija, .divNovaPijacaNaziv, .divNoviKorisnikJMBG, .divNoviKorisnikUsername, .divNoviKorisnikIme, .divNoviKorisnikPrezime, .divNoviKorisnikGrad, .divNoviKorisnikAdresa, .divNoviKorisnikTelefon, .divNoviKorisnikEmail{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -395,7 +408,7 @@ button:hover{
 .divOglasIzmeniJMBGSifra, .divNoviAutomobilMarkaModel, .divNoviAutomobilGodisteKilometraza, .divNoviAutomobilKaroserijaGorivo, .divNoviAutomobilKubikazaSnaga, .divNoviAutomobilJMBGVlasnikaPijaca{
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
 }

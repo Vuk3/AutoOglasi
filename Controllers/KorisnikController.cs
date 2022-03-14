@@ -384,7 +384,7 @@ namespace Web_Projekat_18036.Controllers
 
         public async Task<ActionResult> ObrisiKorisnika(string usernameKorisnika){
             if(string.IsNullOrWhiteSpace(usernameKorisnika)){
-                return BadRequest("Nevalidan JMBG");
+                return BadRequest("Nevalidno korisnicko ime");
             }
 
             try{
@@ -393,6 +393,18 @@ namespace Web_Projekat_18036.Controllers
                 {
                     return BadRequest("Korisnik ne postoji");
                 }
+                var oglasiKorisnika = await Context.Oglasi.Where(p=>p.vlasnikOglasa.username==usernameKorisnika).ToListAsync();
+
+                oglasiKorisnika.ForEach(p=> Context.Oglasi.Remove(p));
+
+
+
+                var automobiliKorisnika = await Context.Automobili.Where(p=>p.vlasnikAutomobila.username==usernameKorisnika).ToListAsync();
+
+                automobiliKorisnika.ForEach(p=> Context.Automobili.Remove(p));
+
+
+                
                 Context.Korisnici.Remove(probniKorisnik);
                 await Context.SaveChangesAsync();
                 

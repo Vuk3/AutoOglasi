@@ -521,10 +521,15 @@ export class Sajt{
                 }).then(s=>{
                     if(s.ok){
                         s.json().then(data1=>{
-                            data1.forEach((data,index)=>{
-                                const noviOglas = new Oglas(data.usernamekorisnika, data.adresaKorisnika, data.brojSasijeAutomobila, data.cena, data.datum, data.emailKorisnika, data.godisteAutomobila, data.gorivoAutomobila, data.gradKorisnika, data.imeKorisnika, data.jmbGkorisnika, data.karoserijaAutomobila, data.kilometrazaAutomobila, data.kubikazaAutomobila, data.lokacijaPijace, data.markaAutomobila, data.modelAutomobila, data.nazivPijace, data.prezimeKorisnika, data.sifraOglasa, data.snagaMotoraAutomobila, data.telefonKorisnika, data.telefonPijace, data.slikaKorisnika);
-                            noviOglas.crtajOglase(this.kontejner.querySelector(".PrikazDesno"), index);    
-                            })
+                            if(data1.length==0){
+                                alert("Nemamo takve oglase");
+                            }
+                            else{
+                                data1.forEach((data,index)=>{
+                                    const noviOglas = new Oglas(data.usernamekorisnika, data.adresaKorisnika, data.brojSasijeAutomobila, data.cena, data.datum, data.emailKorisnika, data.godisteAutomobila, data.gorivoAutomobila, data.gradKorisnika, data.imeKorisnika, data.jmbGkorisnika, data.karoserijaAutomobila, data.kilometrazaAutomobila, data.kubikazaAutomobila, data.lokacijaPijace, data.markaAutomobila, data.modelAutomobila, data.nazivPijace, data.prezimeKorisnika, data.sifraOglasa, data.snagaMotoraAutomobila, data.telefonKorisnika, data.telefonPijace, data.slikaKorisnika);
+                                    noviOglas.crtajOglase(this.kontejner.querySelector(".PrikazDesno"), index);    
+                                })
+                            }
                         })
                     }
                     else{
@@ -809,7 +814,7 @@ export class Sajt{
                                         if(s.ok){
                                             s.json().then(data=>{
                                                 console.log(data);
-                                                const noviOglas = new Oglas(data.usernamekorisnika, data.sifrakorisnika, data.adresaKorisnika, data.brojSasijeAutomobila, data.cena, data.datum, data.emailKorisnika, data.godisteAutomobila, data.gorivoAutomobila, data.gradKorisnika, data.imeKorisnika, data.jmbGkorisnika, data.karoserijaAutomobila, data.kilometrazaAutomobila, data.kubikazaAutomobila, data.lokacijaPijace, data.markaAutomobila, data.modelAutomobila, data.nazivPijace, data.prezimeKorisnika, data.sifraOglasa, data.snagaMotoraAutomobila, data.telefonKorisnika, data.telefonPijace, data.slikaKorisnika);
+                                                const noviOglas = new Oglas(data.usernamekorisnika, data.adresaKorisnika, data.brojSasijeAutomobila, data.cena, data.datum, data.emailKorisnika, data.godisteAutomobila, data.gorivoAutomobila, data.gradKorisnika, data.imeKorisnika, data.jmbGkorisnika, data.karoserijaAutomobila, data.kilometrazaAutomobila, data.kubikazaAutomobila, data.lokacijaPijace, data.markaAutomobila, data.modelAutomobila, data.nazivPijace, data.prezimeKorisnika, data.sifraOglasa, data.snagaMotoraAutomobila, data.telefonKorisnika, data.telefonPijace, data.slikaKorisnika);
                                                 noviOglas.crtajOglas(this.kontejner.querySelector(".PrikazDesno"));
                                             })
                                         }
@@ -1624,13 +1629,13 @@ export class Sajt{
                 alert(validacija);
             }
             else{
-                console.log(gorivoOpcija1);
                 fetch("https://localhost:5001/Automobil/DodajAutomobilNaPlac/"+brojSasije1+"/"+marka1+"/"+model1+"/"+godiste1+"/"+kilometraza1+"/"+karoserijaOpcija1+"/"+gorivoOpcija1+"/"+kubikaza1+"/"+snaga1+"/"+korisnickoImeVlasnika1+"/"+pijaca1,
                 {
                     method:"POST"
                 }).then(s=>{
                     if(s.ok){
                         s.json().then(data=>{
+                            this.dodajAutomobil(host);
                             let auto = new Automobil(data.brojSasije, data.marka, data.model, data.godiste, data.kilometraza, data.karoserija, data.gorivo, data.kubikaza, data.snagaMotora, data.vlasnik.username, data.pijaca.naziv);
                             auto.crtajAutomobil(this.kontejner.querySelector(".PrikazDesno"));
                         })
@@ -2139,7 +2144,6 @@ export class Sajt{
                                     // novaSlika.src="../Avatari/"+i+".png";
                                 }
 
-                                
                             }
                         }
 
@@ -2575,29 +2579,35 @@ export class Sajt{
             let username1=host.querySelector(".inputKorisnikNadjiOglaseJMBG").value;
 
             if(username1===null || username1===undefined || username1===""){
-                alert("Neispravan JMBG");
+                alert("Neispravno korisnicko ime.");
             }
+            else{
 
-            fetch("https://localhost:5001/Korisnik/PrikaziSvojePonude/"+username1,
-            {
-                method:"GET"
-            }).then(s=>{
-                if(s.ok){
-                    let i = 0;
-                    s.json().then(data1=>{
-                        data1.forEach((data,index)=>{
-                            const noviOglas = new Oglas(data.usernamekorisnika, data.adresaKorisnika, data.brojSasijeAutomobila, data.cena, data.datum, data.emailKorisnika, data.godisteAutomobila, data.gorivoAutomobila, data.gradKorisnika, data.imeKorisnika, data.jmbGkorisnika, data.karoserijaAutomobila, data.kilometrazaAutomobila, data.kubikazaAutomobila, data.lokacijaPijace, data.markaAutomobila, data.modelAutomobila, data.nazivPijace, data.prezimeKorisnika, data.sifraOglasa, data.snagaMotoraAutomobila, data.telefonKorisnika, data.telefonPijace, data.slikaKorisnika);
-                            noviOglas.crtajOglase(this.kontejner.querySelector(".PrikazDesno"), index);    
+                fetch("https://localhost:5001/Korisnik/PrikaziSvojePonude/"+username1,
+                {
+                    method:"GET"
+                }).then(s=>{
+                    if(s.ok){
+                        s.json().then(data1=>{
+                            if(data1.length==0){
+                                alert("Ovaj korisnik nije postavio nijedan oglas");
+                            }
+                            else{
+                                data1.forEach((data,index)=>{
+                                    const noviOglas = new Oglas(data.usernamekorisnika, data.adresaKorisnika, data.brojSasijeAutomobila, data.cena, data.datum, data.emailKorisnika, data.godisteAutomobila, data.gorivoAutomobila, data.gradKorisnika, data.imeKorisnika, data.jmbGkorisnika, data.karoserijaAutomobila, data.kilometrazaAutomobila, data.kubikazaAutomobila, data.lokacijaPijace, data.markaAutomobila, data.modelAutomobila, data.nazivPijace, data.prezimeKorisnika, data.sifraOglasa, data.snagaMotoraAutomobila, data.telefonKorisnika, data.telefonPijace, data.slikaKorisnika);
+                                    noviOglas.crtajOglase(this.kontejner.querySelector(".PrikazDesno"), index);    
+                                })
+                            }
+                            
                         })
-                        
-                    })
-                }
-                else{
-                    s.text().then(data=>{
-                        alert(data);
-                    })
-                }
-            })
+                    }
+                    else{
+                        s.text().then(data=>{
+                            alert(data);
+                        })
+                    }
+                })
+            }
 
 
         }
@@ -2767,6 +2777,11 @@ export class Sajt{
                                         this.kontejner.querySelector(".PrikazDesno").innerHTML="";
                                         this.crtaj(document.body);
                                         alert("Korisnik uspesno obrisan");
+                                    }
+                                    else{
+                                        s.text().then(data=>{
+                                            alert(data);
+                                        })
                                     }
                                 })
                             }
