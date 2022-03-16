@@ -35,6 +35,7 @@ namespace Web_Projekat_18036.Controllers
                 return Ok(new{
                     naziv=probnaPijaca.naziv,
                     lokacija=probnaPijaca.lokacija,
+                    adresa=probnaPijaca.adresa,
                     telefon=probnaPijaca.telefon
                 });
             }
@@ -55,9 +56,10 @@ namespace Web_Projekat_18036.Controllers
                 new
                 {
                     // Pijaca = new{
-                    NoviID=p.ID,
+                    
                     p.naziv,
                     p.lokacija,
+                    p.adresa,
                     p.telefon
                     // }
                 }).ToListAsync());
@@ -68,32 +70,49 @@ namespace Web_Projekat_18036.Controllers
         }
 
 
-        [Route("DodajPijacu")]
+        [Route("DodajPijacu/{nazivPijace}/{lokacijaPijace}/{adresaPijace}/{telefonPijace}")]
         [HttpPost]
 
-        public async Task<ActionResult> DodajPijacu([FromBody] Pijaca pijaca){
-                if(string.IsNullOrWhiteSpace(pijaca.naziv)){
+        public async Task<ActionResult> DodajPijacu(string nazivPijace, string lokacijaPijace, string adresaPijace, string telefonPijace){
+            if(string.IsNullOrWhiteSpace(nazivPijace)){
                 return BadRequest("Nevalidan naziv");
             }
 
-            if(string.IsNullOrWhiteSpace(pijaca.lokacija)){
+            if(string.IsNullOrWhiteSpace(lokacijaPijace)){
                 return BadRequest("Nevalidna lokacija");
             }
 
-            if(string.IsNullOrWhiteSpace(pijaca.telefon)){
+            if(string.IsNullOrWhiteSpace(adresaPijace)){
+                return BadRequest("Nevalidna adresa");
+            }
+
+            if(string.IsNullOrWhiteSpace(telefonPijace)){
                 return BadRequest("Nevalidan telefon");
             }
 
             try{
 
-                var probnaPijaca=Context.Pijace.Where(p=>p.naziv==pijaca.naziv).FirstOrDefaultAsync();
+                var probnaPijaca= await Context.Pijace.Where(p=>p.naziv==nazivPijace).FirstOrDefaultAsync();
                 if(probnaPijaca!=null){
                     return BadRequest("Pijaca sa datim imenom vec postoji");
                 }
-                Context.Pijace.Add(pijaca);
+
+                var novaPijaca = new Pijaca{
+                    naziv=nazivPijace,
+                    lokacija=lokacijaPijace,
+                    adresa=adresaPijace,
+                    telefon=telefonPijace
+                };
+
+                Context.Pijace.Add(novaPijaca);
                 await Context.SaveChangesAsync();
 
-                return Ok($"Dodata je pijaca sa ID: {pijaca.ID}.");
+                return Ok(new{
+                    naziv=novaPijaca.naziv,
+                    lokacija=novaPijaca.lokacija,
+                    adresa=novaPijaca.adresa,
+                    telefon=novaPijaca.telefon
+                });
             }
             catch(Exception e){
                 return BadRequest(e.Message);
@@ -102,38 +121,39 @@ namespace Web_Projekat_18036.Controllers
 
         }
 
-        [Route("IzmeniPijacu")]
+        [Route("IzmeniPijacu/{nazivPijace}/{telefonPijace}")]
         [HttpPut]
 
-        public async Task<ActionResult> IzmeniPijacu([FromBody] Pijaca novaPijaca){
+        public async Task<ActionResult> IzmeniPijacu(string nazivPijace, string telefonPijace){
 
 
 
-            if(string.IsNullOrWhiteSpace(novaPijaca.naziv)){
+            if(string.IsNullOrWhiteSpace(nazivPijace)){
                 return BadRequest("Nevalidan naziv");
             }        
 
-            if(string.IsNullOrWhiteSpace(novaPijaca.lokacija)){
-                return BadRequest("Nevalidna lokacija");
-            }  
-
-            if(string.IsNullOrWhiteSpace(novaPijaca.telefon)){
+            if(string.IsNullOrWhiteSpace(telefonPijace)){
                 return BadRequest("Nevalidan telefon");
             }
 
             try{
-                var pijaca = await Context.Pijace.FindAsync(novaPijaca.ID);
+                var pijaca = await Context.Pijace.Where(p=> p.naziv==nazivPijace).FirstOrDefaultAsync();
                 if (pijaca==null){
-                    return StatusCode(201,"Pijaca ne postoji");
+                    return BadRequest("Pijaca ne postoji");
                 }
 
-                pijaca.naziv=novaPijaca.naziv;
-                pijaca.lokacija=novaPijaca.lokacija;
-                pijaca.telefon=novaPijaca.telefon;
+                if(telefonPijace!="-"){
+                    pijaca.telefon=telefonPijace;
+                }
 
                 await Context.SaveChangesAsync();
 
-                return Ok("Uspesno promenjena Pijaca!");               
+                return Ok(new{
+                    naziv=pijaca.naziv,
+                    lokacija=pijaca.lokacija,
+                    adresa=pijaca.adresa,
+                    telefon=pijaca.telefon
+                });           
             } 
             catch (Exception e){
                 return BadRequest(e.Message);
@@ -141,16 +161,16 @@ namespace Web_Projekat_18036.Controllers
         }
 
 
-        [Route("ObrisiPijacu/{id}")]
+        [Route("ObrisiPijacu/{nazivPijace}")]
         [HttpDelete]
 
-        public async Task<ActionResult> ObrisiPijacu(int id){
-            if (id<0){
-                return BadRequest("Nevalidan ID");
+        public async Task<ActionResult> ObrisiPijacu(string nazivPijace){
+            if (string.IsNullOrWhiteSpace(nazivPijace)){
+                return BadRequest("Nevalidan naziv pijace");
             }
 
             try{
-                var probnaPijaca = await Context.Pijace.FindAsync(id);
+                var probnaPijaca = await Context.Pijace.Where(p=>p.naziv==nazivPijace).FirstOrDefaultAsync();
                 if (probnaPijaca==null){
                     return BadRequest("Pijaca ne postoji");
                 }

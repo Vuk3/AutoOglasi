@@ -19,6 +19,9 @@ namespace Models{
         public string lokacija { get; set; }
 
         [Required]
+        public string adresa { get; set; }
+
+        [Required]
         public string telefon { get; set; }
 
         [JsonIgnore]

@@ -177,6 +177,10 @@ namespace Web_Projekat_18036.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("adresa")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("lokacija")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

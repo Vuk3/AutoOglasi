@@ -275,6 +275,48 @@ namespace Web_Projekat_18036.Controllers
             }
         }
 
+
+
+
+        [Route("NadjiAdmina/{usernameKorisnika}/{sifraKorisnika}")]
+        [HttpGet]
+        public async Task<ActionResult> NadjiAdmina(string usernameKorisnika, string sifraKorisnika){
+            try{
+
+
+                var user = await Context.Korisnici.Where(p=>p.username==usernameKorisnika && p.sifra==sifraKorisnika).FirstOrDefaultAsync();
+
+                if(usernameKorisnika=="Admin" && sifraKorisnika!="admin"){
+                    return BadRequest("Admine, pogresna sifra!");
+                }
+
+
+                if(user!=null){
+                    if(usernameKorisnika!="Admin"){
+                        return BadRequest("Samo admin moze da uredjuje pijacu");
+                    }
+                }
+                else{
+                    return BadRequest("Korisnik ne postoji");
+                }
+
+                if(string.IsNullOrWhiteSpace(usernameKorisnika)){
+                    return BadRequest("Nevalidno korisnicko ime");
+                }
+
+                if(string.IsNullOrWhiteSpace(sifraKorisnika)){
+                    return BadRequest("Nevalidna sifra");
+                }
+
+        
+                return Ok();
+
+            }
+            catch(Exception e){
+                return BadRequest(e.Message);
+            }
+        }
+
         [Route("NadjiKorisnikaBezSifre/{usernameKorisnika}")]
         [HttpGet]
         public async Task<ActionResult> NadjiKorisnikaBezSifre(string usernameKorisnika){

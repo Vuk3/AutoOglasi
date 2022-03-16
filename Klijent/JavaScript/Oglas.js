@@ -139,14 +139,18 @@ export class Oglas{
 
 
         host.querySelector(".divNoviOglas").onclick=()=>{
-            let noviKorisnik = new Korisnik(this.jmbgKorisnika, this.usernameKorisnika, this.imeKorisnika, this.prezimeKorisnika, this.gradKorisnika, this.adresaKorisnika, this.telefonKorisnika, this.emailKorisnika, this.slikaKorisnika);
-            noviKorisnik.crtajKorisnika(host);
+
+            let novaPijaca = new Pijaca(this.nazivPijace, this.lokacijaPijace, this.telefonPijace);
+            novaPijaca.crtajPijacu(host);
 
             let noviAutomobil= new Automobil(this.brojSasijeAutomobila, this.markaAutomobila, this.modelAutomobila, this.godisteAutomobila, this.kilometrazaAutomobila, this.karoserijaAutomobila, this.gorivoAutomobila, this.kubikazaAutomobila, this.snagaMotoraAutomobila, this.usernameKorisnika, this.nazivPijace);
             noviAutomobil.crtajAutomobil(host);
 
-            let novaPijaca = new Pijaca(this.nazivPijace, this.lokacijaPijace, this.telefonPijace);
-            novaPijaca.crtajPijacu(host);
+
+
+            let noviKorisnik = new Korisnik(this.jmbgKorisnika, this.usernameKorisnika, this.imeKorisnika, this.prezimeKorisnika, this.gradKorisnika, this.adresaKorisnika, this.telefonKorisnika, this.emailKorisnika, this.slikaKorisnika);
+            noviKorisnik.crtajKorisnika(host);
+
 
             this.crtajMiniOglas(host.querySelector(".divNoviOglas"));
 
@@ -276,14 +280,18 @@ export class Oglas{
             d.className="divNoviOglas"+index;
             host.appendChild(d);
 
-            let noviKorisnik = new Korisnik(this.jmbgKorisnika, this.usernameKorisnika, this.imeKorisnika, this.prezimeKorisnika, this.gradKorisnika, this.adresaKorisnika, this.telefonKorisnika, this.emailKorisnika, this.slikaKorisnika);
-            noviKorisnik.crtajKorisnika(host);
+            let novaPijaca = new Pijaca(this.nazivPijace, this.lokacijaPijace, this.telefonPijace);
+            novaPijaca.crtajPijacu(host);
+
+
 
             let noviAutomobil= new Automobil(this.brojSasijeAutomobila, this.markaAutomobila, this.modelAutomobila, this.godisteAutomobila, this.kilometrazaAutomobila, this.karoserijaAutomobila, this.gorivoAutomobila, this.kubikazaAutomobila, this.snagaMotoraAutomobila, this.usernameKorisnika, this.nazivPijace);
             noviAutomobil.crtajAutomobil(host);
 
-            let novaPijaca = new Pijaca(this.nazivPijace, this.lokacijaPijace, this.telefonPijace);
-            novaPijaca.crtajPijacu(host);
+            let noviKorisnik = new Korisnik(this.jmbgKorisnika, this.usernameKorisnika, this.imeKorisnika, this.prezimeKorisnika, this.gradKorisnika, this.adresaKorisnika, this.telefonKorisnika, this.emailKorisnika, this.slikaKorisnika);
+            noviKorisnik.crtajKorisnika(host);
+
+
 
             this.crtajMiniOglas(d, index);
 

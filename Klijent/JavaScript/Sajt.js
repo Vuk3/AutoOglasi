@@ -1,6 +1,7 @@
 import { Korisnik } from "./Korisnik.js";
 import { Automobil } from "./Automobil.js";
 import { Oglas } from "./Oglas.js";
+import { Pijaca } from "./Pijaca.js";
 
 export class Sajt{
     
@@ -76,6 +77,10 @@ export class Sajt{
         let divOglas = document.createElement("div");
         divOglas.className="divDugmiciOglas";
         host.appendChild(divOglas);
+
+        let divPijaca = document.createElement("div");
+        divPijaca.className="divDugmiciPijaca";
+        host.appendChild(divPijaca);
 
         let se;
         let l;
@@ -257,6 +262,1087 @@ export class Sajt{
             }
         }
 
+
+        //Deo za pijace
+
+        l = document.createElement("label");
+        l.innerHTML="Pijaca";
+        l.className="DugmiciNaslov";
+        divPijaca.appendChild(l);
+
+
+        se=document.createElement("select");
+        se.className="selectPijaca";
+        divPijaca.appendChild(se);
+
+        op=document.createElement("option");
+        op.innerHTML="Dodaj pijacu";
+        op.value=0;
+        se.appendChild(op);
+
+        op=document.createElement("option");
+        op.innerHTML="Izmeni pijacu";
+        op.value=1;
+        se.appendChild(op);
+
+        op=document.createElement("option");
+        op.innerHTML="Nadji pijacu";
+        op.value=2;
+        se.appendChild(op);
+
+        op=document.createElement("option");
+        op.innerHTML="Prikazi sve pijace";
+        op.value=3;
+        se.appendChild(op);
+
+        op=document.createElement("option");
+        op.innerHTML="Obrisi pijacu";
+        op.value=4;
+        se.appendChild(op);
+
+        dugme = document.createElement("button");
+        dugme.innerHTML="Izvrsi";
+        dugme.className="dugmePijaca";
+        divPijaca.appendChild(dugme);
+        dugme.onclick=(ev)=>{
+            let desno = this.kontejner.querySelector(".PrikazDesno");
+            desno.innerHTML="";
+            let opt = this.kontejner.querySelector(".selectPijaca");
+            let provera = opt.options[opt.selectedIndex].value;
+            if(provera==0){
+                this.dodajPijacu(this.kontejner.querySelector(".PrikazLevo"));
+            }
+            else if(provera==1){
+                this.izmeniPijacu(this.kontejner.querySelector(".PrikazLevo"));
+            }
+            else if(provera==2){
+                this.nadjiPijacu(this.kontejner.querySelector(".PrikazLevo"));
+            }
+            else if(provera==3){
+                this.svePijace(this.kontejner.querySelector(".PrikazLevo"));
+            }
+            else if(provera==4){
+                this.obrisiPijacu(this.kontejner.querySelector(".PrikazLevo"));
+            }
+
+        }
+
+    }
+
+    dodajPijacu(host){
+
+        
+        host.innerHTML="";
+
+        host.classList.add("PrikazLevoDodajPadding");
+
+        let l;
+        let i;
+        let btn;
+        let d;
+
+
+        l=document.createElement("label");
+        l.innerHTML="Dodaj pijacu";
+        l.className="lblPrikazLevoNaslov";
+        host.appendChild(l);
+
+
+        l=document.createElement("div");
+        l.className="divPijacaDodajUsernameSifra";
+        host.appendChild(l);
+
+        l=document.createElement("div");
+        l.className="divPijacaDodajUsername";
+        host.querySelector(".divPijacaDodajUsernameSifra").appendChild(l);
+
+        l=document.createElement("div");
+        l.className="divPijacaDodajSifra";
+        host.querySelector(".divPijacaDodajUsernameSifra").appendChild(l);
+
+
+        
+
+        l=document.createElement("label");
+        l.innerHTML="Korisnicko ime";
+        host.querySelector(".divPijacaDodajUsername").appendChild(l);
+
+        
+        i=document.createElement("input");
+        i.className="inputPijacaDodajUsername";
+        host.querySelector(".divPijacaDodajUsername").appendChild(i);
+
+
+
+
+
+        l=document.createElement("label");
+        l.innerHTML="Lozinka";
+        host.querySelector(".divPijacaDodajSifra").appendChild(l);
+
+        
+        i=document.createElement("input");
+        i.className="inputPijacaDodajSifra";
+        i.type="password";
+        host.querySelector(".divPijacaDodajSifra").appendChild(i);
+
+
+
+
+        l=document.createElement("div");
+        l.className="divPijacaDodajDugme";
+        host.appendChild(l);
+
+        btn = document.createElement("button");
+        btn.innerHTML="Prijavi se";
+        btn.className="btnNadji";
+        btn.classList.add("btnPijacaDodajPrijaviSe");
+        host.querySelector(".divPijacaDodajDugme").appendChild(btn);
+
+
+        d=document.createElement("div");
+        d.className="divPijacaDodajDole";
+        d.innerHTML="";
+        host.appendChild(d);
+
+
+        btn.onclick=(ev)=>{
+            let validacija="";
+
+            let username1=host.querySelector(".inputPijacaDodajUsername").value;
+            let sifra1=host.querySelector(".inputPijacaDodajSifra").value;
+
+            if(username1===null || username1===undefined || username1===""){
+                validacija+="Neispravno korisnicko ime\n";
+            }
+
+            if(sifra1===null || sifra1===undefined || sifra1===""){
+                validacija+="Neispravna lozinka\n";
+            }
+
+            if(validacija!=""){
+                alert(validacija);
+            }
+
+            else{
+                fetch("https://localhost:5001/Korisnik/NadjiAdmina/"+username1+"/"+sifra1,
+                {
+                    method:"GET"
+                }).then(s=>{
+                    if(s.ok){
+
+
+                        host.querySelector(".divPijacaDodajDole").innerHTML="";
+
+                        host.querySelector(".inputPijacaDodajUsername").disabled=true;
+                        host.querySelector(".inputPijacaDodajUsername").style.cursor="not-allowed";
+
+
+                        host.querySelector(".inputPijacaDodajSifra").disabled=true;
+                        host.querySelector(".inputPijacaDodajSifra").style.cursor="not-allowed";
+
+
+                        host.querySelector(".btnPijacaDodajPrijaviSe").disabled=true;
+                        host.querySelector(".btnPijacaDodajPrijaviSe").style.cursor="not-allowed";
+                        
+
+
+
+
+
+
+                        l=document.createElement("div");
+                        l.className="divPijacaDodajNazivLokacija";
+                        host.querySelector(".divPijacaDodajDole").appendChild(l);
+
+                        l=document.createElement("div");
+                        l.className="divPijacaDodajNaziv";
+                        host.querySelector(".divPijacaDodajNazivLokacija").appendChild(l);
+
+                        l=document.createElement("div");
+                        l.className="divPijacaDodajLokacija";
+                        host.querySelector(".divPijacaDodajNazivLokacija").appendChild(l);
+
+
+                        
+
+                        l=document.createElement("label");
+                        l.innerHTML="Naziv";
+                        host.querySelector(".divPijacaDodajNaziv").appendChild(l);
+
+                        
+                        i=document.createElement("input");
+                        i.className="inputPijacaDodajNaziv";
+                        host.querySelector(".divPijacaDodajNaziv").appendChild(i);
+
+
+
+
+
+                        l=document.createElement("label");
+                        l.innerHTML="Grad";
+                        host.querySelector(".divPijacaDodajLokacija").appendChild(l);
+
+                        
+                        i=document.createElement("input");
+                        i.className="inputPijacaDodajLokacija";
+                        host.querySelector(".divPijacaDodajLokacija").appendChild(i);
+
+
+
+
+                        //*********************************************************************** */
+
+
+                        l=document.createElement("div");
+                        l.className="divPijacaDodajAdresaTelefon";
+                        host.querySelector(".divPijacaDodajDole").appendChild(l);
+
+                        l=document.createElement("div");
+                        l.className="divPijacaDodajAdresa";
+                        host.querySelector(".divPijacaDodajAdresaTelefon").appendChild(l);
+
+                        l=document.createElement("div");
+                        l.className="divPijacaDodajTelefon";
+                        host.querySelector(".divPijacaDodajAdresaTelefon").appendChild(l);
+
+
+                        
+
+                        l=document.createElement("label");
+                        l.innerHTML="Adresa";
+                        host.querySelector(".divPijacaDodajAdresa").appendChild(l);
+
+                        
+                        i=document.createElement("input");
+                        i.className="inputPijacaDodajAdresa";
+                        host.querySelector(".divPijacaDodajAdresa").appendChild(i);
+
+
+
+
+
+                        l=document.createElement("label");
+                        l.innerHTML="Telefon";
+                        host.querySelector(".divPijacaDodajTelefon").appendChild(l);
+
+                        
+                        i=document.createElement("input");
+                        i.className="inputPijacaDodajTelefon";
+                        host.querySelector(".divPijacaDodajTelefon").appendChild(i);
+
+
+
+
+
+                        i=document.createElement("div");
+                        i.className="divPijacaDodajDugmeDole";
+                        host.querySelector(".divPijacaDodajDole").appendChild(i);
+
+                        let btn1=document.createElement("button");
+                        btn1.innerHTML="Dodaj pijacu";
+                        btn1.className="btnDodaj";
+                        host.querySelector(".divPijacaDodajDugmeDole").appendChild(btn1);
+
+                        d=document.createElement("div");
+                        d.className="divPijacaDodajDole1";
+                        d.innerHTML="";
+                        host.appendChild(d);
+
+
+                        btn1.onclick=(ev)=>{
+                            let validacija="";
+                            let naziv1 = host.querySelector(".inputPijacaDodajNaziv").value;
+                            if(naziv1===null || naziv1===undefined || naziv1===""){
+                                validacija+="Nevalidan naziv\n";
+                            }
+
+                            let lokacija1 = host.querySelector(".inputPijacaDodajLokacija").value;
+
+                            if(lokacija1===null || lokacija1===undefined || lokacija1===""){
+                                validacija+="Nevalidan grad\n";
+                            }
+
+                            let adresa1 = host.querySelector(".inputPijacaDodajAdresa").value;
+
+                            if(adresa1===null || adresa1===undefined || adresa1===""){
+                                validacija+="Nevalidna adresa\n";
+                            }
+
+
+                            let telefon1 = host.querySelector(".inputPijacaDodajTelefon").value;
+
+                            if(telefon1===null || telefon1===undefined || telefon1===""){
+                                validacija+="Nevalidan telefon\n";
+                            }
+
+
+                            if(validacija!=""){
+                                alert(validacija);
+                            }
+
+                            else{
+                                fetch("https://localhost:5001/Pijaca/DodajPijacu/"+naziv1+"/"+lokacija1+"/"+adresa1+"/"+telefon1,
+                                {
+                                    method:"POST"
+                                }).then(s=>{
+                                    if(s.ok){
+                                        s.json().then(data=>{
+                                            const novaPijaca = new Pijaca(data.naziv, data.lokacija, data.adresa, data.telefon);
+                                            this.kontejner.querySelector(".PrikazDesno").innerHTML="";
+                                            novaPijaca.crtajPijacu(this.kontejner.querySelector(".PrikazDesno"));
+                                        })
+                                    }
+                                    else{
+                                        s.text().then(data=>{
+                                            // host.querySelector(".divOglasIzmeniDole1").innerHTML="";
+                                            // this.kontejner.querySelector(".PrikazDesno").innerHTML="";
+                                            alert(data)
+                                        })
+                                    }
+                                })
+                            }
+                        }
+
+
+                    }
+                    else{
+                        s.text().then(data=>{
+                            // host.querySelector(".divOglasIzmeniDole1").innerHTML="";
+                            // this.kontejner.querySelector(".PrikazDesno").innerHTML="";
+                            alert(data)
+                        })
+                    }
+                })
+            }
+        }
+
+    }
+
+    izmeniPijacu(host){
+
+
+
+        host.innerHTML="";
+
+        host.classList.add("PrikazLevoDodajPadding");
+
+        let l;
+        let i;
+        let btn;
+        let d;
+
+
+        l=document.createElement("label");
+        l.innerHTML="Izmeni pijacu";
+        l.className="lblPrikazLevoNaslov";
+        host.appendChild(l);
+
+
+        l=document.createElement("div");
+        l.className="divPijacaIzmeniUsernameSifra";
+        host.appendChild(l);
+
+        l=document.createElement("div");
+        l.className="divPijacaIzmeniUsername";
+        host.querySelector(".divPijacaIzmeniUsernameSifra").appendChild(l);
+
+        l=document.createElement("div");
+        l.className="divPijacaIzmeniSifra";
+        host.querySelector(".divPijacaIzmeniUsernameSifra").appendChild(l);
+
+
+        
+
+        l=document.createElement("label");
+        l.innerHTML="Korisnicko ime";
+        host.querySelector(".divPijacaIzmeniUsername").appendChild(l);
+
+        
+        i=document.createElement("input");
+        i.className="inputPijacaIzmeniUsername";
+        host.querySelector(".divPijacaIzmeniUsername").appendChild(i);
+
+
+
+
+
+        l=document.createElement("label");
+        l.innerHTML="Lozinka";
+        host.querySelector(".divPijacaIzmeniSifra").appendChild(l);
+
+        
+        i=document.createElement("input");
+        i.className="inputPijacaIzmeniSifra";
+        i.type="password";
+        host.querySelector(".divPijacaIzmeniSifra").appendChild(i);
+
+
+
+
+        l=document.createElement("div");
+        l.className="divPijacaIzmeniDugme";
+        host.appendChild(l);
+
+        btn = document.createElement("button");
+        btn.innerHTML="Prijavi se";
+        btn.className="btnNadji";
+        btn.classList.add("btnPijacaIzmeniPrijaviSe");
+        host.querySelector(".divPijacaIzmeniDugme").appendChild(btn);
+
+
+        d=document.createElement("div");
+        d.className="divPijacaIzmeniDole";
+        d.innerHTML="";
+        host.appendChild(d);
+
+
+        btn.onclick=(ev)=>{
+            let validacija="";
+
+            let username1=host.querySelector(".inputPijacaIzmeniUsername").value;
+            let sifra1=host.querySelector(".inputPijacaIzmeniSifra").value;
+
+            if(username1===null || username1===undefined || username1===""){
+                validacija+="Neispravno korisnicko ime\n";
+            }
+
+            if(sifra1===null || sifra1===undefined || sifra1===""){
+                validacija+="Neispravna lozinka\n";
+            }
+
+            if(validacija!=""){
+                alert(validacija);
+            }
+
+            else{
+                fetch("https://localhost:5001/Korisnik/NadjiAdmina/"+username1+"/"+sifra1,
+                {
+                    method:"GET"
+                }).then(s=>{
+                    if(s.ok){
+                        host.querySelector(".divPijacaIzmeniDole").innerHTML="";
+
+
+                        host.querySelector(".inputPijacaIzmeniUsername").disabled=true;
+                        host.querySelector(".inputPijacaIzmeniUsername").style.cursor="not-allowed";
+
+
+                        host.querySelector(".inputPijacaIzmeniSifra").disabled=true;
+                        host.querySelector(".inputPijacaIzmeniSifra").style.cursor="not-allowed";
+
+
+                        host.querySelector(".btnPijacaIzmeniPrijaviSe").disabled=true;
+                        host.querySelector(".btnPijacaIzmeniPrijaviSe").style.cursor="not-allowed";
+
+                        l=document.createElement("div");
+                        l.className="divPijacaIzmeniNaziv";
+                        host.querySelector(".divPijacaIzmeniDole").appendChild(l);
+                        
+                
+                        l=document.createElement("label");
+                        l.innerHTML="Naziv";
+                        host.querySelector(".divPijacaIzmeniNaziv").appendChild(l);
+                
+                        
+                        i=document.createElement("input");
+                        i.className="inputPijacaIzmeniNaziv";
+                        host.querySelector(".divPijacaIzmeniNaziv").appendChild(i);
+                
+                
+                
+                
+                        l=document.createElement("div");
+                        l.className="divPijacaIzmeniDugmeDole";
+                        host.querySelector(".divPijacaIzmeniDole").appendChild(l);
+                
+                        let btn1 = document.createElement("button");
+                        btn1.innerHTML="Nadji pijacu";
+                        btn1.className="btnNadji";
+                        btn1.classList.add("izmeniPijacuu");
+                        host.querySelector(".divPijacaIzmeniDugmeDole").appendChild(btn1);
+                
+                
+                
+                
+                        d = document.createElement("div");
+                        d.className="divPijacaIzmeniDole1";
+                        d.innerHTML="";
+                        host.appendChild(d);
+
+
+                        btn1.onclick=(ev)=>{
+                            let naziv1=host.querySelector(".inputPijacaIzmeniNaziv").value;
+                
+                            if(naziv1===null || naziv1===undefined || naziv1===""){
+                                alert("Neispravan naziv");
+                            }
+                            else{
+                                fetch("https://localhost:5001/Pijaca/PreuzmiPijacu/"+naziv1,
+                                {
+                                    method:"GET"
+                                }).then(s=>{
+                                    if(s.ok){
+                                        s.json().then(data=>{
+                                            let novaPijaca = new Pijaca(data.naziv, data.lokacija, data.adresa, data.telefon);
+                                            novaPijaca.crtajPijacu(this.kontejner.querySelector(".PrikazDesno"))
+
+
+                                            host.querySelector(".inputPijacaIzmeniNaziv").disabled=true;
+                                            host.querySelector(".inputPijacaIzmeniNaziv").style.cursor="not-allowed";
+
+                                            host.querySelector(".izmeniPijacuu").disabled=true;
+                                            host.querySelector(".izmeniPijacuu").style.cursor="not-allowed";
+
+
+
+                                            d=host.querySelector(".divPijacaIzmeniDole1");
+                                            d.innerHTML="";
+
+
+                                            d=document.createElement("div");
+                                            d.className="divPijacaIzmeniTelefon";
+                                            host.querySelector(".divPijacaIzmeniDole1").appendChild(d);
+                                    
+                            
+                            
+                                            l=document.createElement("label");
+                                            l.innerHTML="Novi telefon";
+                                            host.querySelector(".divPijacaIzmeniTelefon").appendChild(l);
+                            
+                            
+                                            i=document.createElement("input");
+                                            i.className="KilometrazaAutomobilIzmeni";
+                                            host.querySelector(".divPijacaIzmeniTelefon").appendChild(i);
+                            
+
+
+
+                                            
+                                            d=document.createElement("div");
+                                            d.className="divPijacaIzmeniDugmeDole1";
+                                            host.querySelector(".divPijacaIzmeniDole1").appendChild(d);
+                            
+                                            let btn2 = document.createElement("button");
+                                            btn2.innerHTML="Izmeni automobil";
+                                            btn2.className="btnIzmeni";
+                                            host.querySelector(".divPijacaIzmeniDugmeDole1").appendChild(btn2);
+
+                                            btn2.onclick=(ev)=>{
+                                                let telefon1 = host.querySelector(".KilometrazaAutomobilIzmeni").value;
+                                                if(telefon1===null || telefon1===undefined || telefon1===""){
+                                                    telefon1="-";
+                                                }
+                                                
+                                                else{
+                                                    fetch("https://localhost:5001/Pijaca/IzmeniPijacu/"+naziv1+"/"+telefon1,
+                                                    {
+                                                        method:"PUT"
+                                                    }).then(s=>{
+                                                        if(s.ok){
+                                                            s.json().then(data=>{
+                                                                let novaPijaca = new Pijaca(data.naziv, data.lokacija, data.adresa, data.telefon);
+                                                                let w = this.kontejner.querySelector(".PrikazDesno");
+                                                                w.innerHTML="";  
+                                                                novaPijaca.crtajPijacu(this.kontejner.querySelector(".PrikazDesno"))
+                    
+                                                            })
+                                                        }
+                                                        else{
+                                                            s.text().then(data=>{
+                                                                alert(data);
+                                                            })
+                                                        }
+                                                    })
+                                                }
+
+                                            }
+                                            
+                                        })
+                                    }
+                                    else{
+                                        s.text().then(data=>{
+                                            alert(data);
+                                        })
+                                    }
+                                })
+                            }
+                        }
+                    }
+                    else{
+                        s.text().then(data=>{
+                            // host.querySelector(".divOglasIzmeniDole1").innerHTML="";
+                            // this.kontejner.querySelector(".PrikazDesno").innerHTML="";
+                            alert(data)
+                        })
+                    }
+                })
+            }
+        }
+    }
+
+    nadjiPijacu(host){
+
+        host.innerHTML="";
+
+        host.classList.add("PrikazLevoDodajPadding");
+
+        let l;
+        let i;
+        let btn;
+
+
+        l=document.createElement("label");
+        l.innerHTML="Nadji pijacu";
+        l.className="lblPrikazLevoNaslov";
+        host.appendChild(l);
+
+
+
+
+        l=document.createElement("div");
+        l.className="divPijacaNadjiNaziv";
+        host.appendChild(l);
+
+        l=document.createElement("label");
+        l.innerHTML="Naziv";
+        host.querySelector(".divPijacaNadjiNaziv").appendChild(l);
+
+        i=document.createElement("input");
+        i.className="inputNadjiPijacuNaziv"
+        host.querySelector(".divPijacaNadjiNaziv").appendChild(i);
+
+
+
+
+        l=document.createElement("div");
+        l.className="divPijacaNadjiDugme";
+        host.appendChild(l);
+
+
+        btn = document.createElement("button");
+        btn.innerHTML="Nadji";
+        btn.className="btnNadji";
+        host.querySelector(".divPijacaNadjiDugme").appendChild(btn);
+
+        btn.onclick=(ev)=>{
+            let naziv1=host.querySelector(".inputNadjiPijacuNaziv").value;
+            if(naziv1===null || naziv1===undefined || naziv1===""){
+                alert("Neispravan naziv");
+            }
+            else{
+                fetch("https://localhost:5001/Pijaca/PreuzmiPijacu/"+naziv1,
+                {
+                    method:"GET",
+                }).then(s=>{
+                    if(s.ok){
+                        s.json().then(data=>{
+                            let novaPijaca = new Pijaca(data.naziv, data.lokacija, data.adresa, data.telefon);
+                            let w = this.kontejner.querySelector(".PrikazDesno");
+                            w.innerHTML="";  
+                            novaPijaca.crtajPijacu(this.kontejner.querySelector(".PrikazDesno"))
+
+                        })
+                    }
+                    else{
+                        s.text().then(data=>{
+                            alert(data);
+                        })
+                    }
+                })
+            }
+        }
+    }
+
+    svePijace(host){
+
+        host.innerHTML="";
+
+        host.classList.add("PrikazLevoDodajPadding");
+
+        let l;
+        let i;
+        let btn;
+        let d;
+
+
+        l=document.createElement("label");
+        l.innerHTML="Sve pijace";
+        l.className="lblPrikazLevoNaslov";
+        host.appendChild(l);
+
+
+        l=document.createElement("div");
+        l.className="divPijacaSveUsernameSifra";
+        host.appendChild(l);
+
+        l=document.createElement("div");
+        l.className="divPijacaSveUsername";
+        host.querySelector(".divPijacaSveUsernameSifra").appendChild(l);
+
+        l=document.createElement("div");
+        l.className="divPijacaSveSifra";
+        host.querySelector(".divPijacaSveUsernameSifra").appendChild(l);
+
+
+        
+
+        l=document.createElement("label");
+        l.innerHTML="Korisnicko ime";
+        host.querySelector(".divPijacaSveUsername").appendChild(l);
+
+        
+        i=document.createElement("input");
+        i.className="inputPijacaSveUsername";
+        host.querySelector(".divPijacaSveUsername").appendChild(i);
+
+
+
+
+
+        l=document.createElement("label");
+        l.innerHTML="Lozinka";
+        host.querySelector(".divPijacaSveSifra").appendChild(l);
+
+        
+        i=document.createElement("input");
+        i.className="inputPijacaSveSifra";
+        i.type="password";
+        host.querySelector(".divPijacaSveSifra").appendChild(i);
+
+
+
+
+        l=document.createElement("div");
+        l.className="divPijacaSveDugme";
+        host.appendChild(l);
+
+        btn = document.createElement("button");
+        btn.innerHTML="Prijavi se";
+        btn.className="btnNadji";
+        btn.classList.add("btnPijacaSvePrijaviSe");
+        host.querySelector(".divPijacaSveDugme").appendChild(btn);
+
+
+        btn.onclick=(ev)=>{
+            let validacija="";
+
+            let username1=host.querySelector(".inputPijacaSveUsername").value;
+            let sifra1=host.querySelector(".inputPijacaSveSifra").value;
+
+            if(username1===null || username1===undefined || username1===""){
+                validacija+="Neispravno korisnicko ime\n";
+            }
+
+            if(sifra1===null || sifra1===undefined || sifra1===""){
+                validacija+="Neispravna lozinka\n";
+            }
+
+            if(validacija!=""){
+                alert(validacija);
+            }
+
+            else{
+                fetch("https://localhost:5001/Korisnik/NadjiAdmina/"+username1+"/"+sifra1,
+                {
+                    method:"GET"
+                }).then(s=>{
+                    if(s.ok){
+                        fetch("https://localhost:5001/Pijaca/PreuzmiPijace",
+                        {
+                            method:"GET"
+                        }).then(q=>{
+                            if(q.ok){
+                                q.json().then(data1=>{
+                                    if(data1.length==0){
+                                        alert("Ne postoji nijenda pijaca u bazi");
+                                    }
+                                    else{
+                                        data1.forEach((data, index)=>{
+                                            const novaPijaca = new Pijaca(data.naziv, data.lokacija, data.adresa, data.telefon);
+                                            novaPijaca.crtajPijace(this.kontejner.querySelector(".PrikazDesno"), index); 
+                                        })
+
+                                        host.querySelector(".inputPijacaSveUsername").disabled=true;
+                                        host.querySelector(".inputPijacaSveUsername").style.cursor="not-allowed";
+
+                                        host.querySelector(".inputPijacaSveSifra").disabled=true;
+                                        host.querySelector(".inputPijacaSveSifra").style.cursor="not-allowed";
+
+                                        host.querySelector(".btnPijacaSvePrijaviSe").disabled=true;
+                                        host.querySelector(".btnPijacaSvePrijaviSe").style.cursor="not-allowed";
+                                    }
+                                })
+                            }
+                        })
+
+                    }
+                    else{
+                        s.text().then(data=>{
+                            alert(data);
+                            this.kontejner.querySelector(".PrikazDesno").innerHTML="";
+                        })
+                    }
+                })
+            }
+        }
+
+    }
+
+    obrisiPijacu(host){
+        host.innerHTML="";
+
+        host.classList.add("PrikazLevoDodajPadding");
+
+        let l;
+        let i;
+        let btn;
+        let d;
+
+
+        l=document.createElement("label");
+        l.innerHTML="Obrisi pijacu";
+        l.className="lblPrikazLevoNaslov";
+        host.appendChild(l);
+
+
+        l=document.createElement("div");
+        l.className="divPijacaObrisiUsernameSifra";
+        host.appendChild(l);
+
+        l=document.createElement("div");
+        l.className="divPijacaObrisiUsername";
+        host.querySelector(".divPijacaObrisiUsernameSifra").appendChild(l);
+
+        l=document.createElement("div");
+        l.className="divPijacaObrisiSifra";
+        host.querySelector(".divPijacaObrisiUsernameSifra").appendChild(l);
+
+
+        
+
+        l=document.createElement("label");
+        l.innerHTML="Korisnicko ime";
+        host.querySelector(".divPijacaObrisiUsername").appendChild(l);
+
+        
+        i=document.createElement("input");
+        i.className="inputPijacaObrisiUsername";
+        host.querySelector(".divPijacaObrisiUsername").appendChild(i);
+
+
+
+
+
+        l=document.createElement("label");
+        l.innerHTML="Lozinka";
+        host.querySelector(".divPijacaObrisiSifra").appendChild(l);
+
+        
+        i=document.createElement("input");
+        i.className="inputPijacaObrisiSifra";
+        i.type="password";
+        host.querySelector(".divPijacaObrisiSifra").appendChild(i);
+
+
+
+
+        l=document.createElement("div");
+        l.className="divPijacaObrisiDugme";
+        host.appendChild(l);
+
+        btn = document.createElement("button");
+        btn.innerHTML="Prijavi se";
+        btn.className="btnNadji";
+        btn.classList.add("btnPijacaObrisiPrijaviSe");
+        host.querySelector(".divPijacaObrisiDugme").appendChild(btn);
+
+
+        d=document.createElement("div");
+        d.className="divPijacaObrisiDole";
+        d.innerHTML="";
+        host.appendChild(d);
+
+
+        btn.onclick=(ev)=>{
+            let validacija="";
+
+            let username1=host.querySelector(".inputPijacaObrisiUsername").value;
+            let sifra1=host.querySelector(".inputPijacaObrisiSifra").value;
+
+            if(username1===null || username1===undefined || username1===""){
+                validacija+="Neispravno korisnicko ime\n";
+            }
+
+            if(sifra1===null || sifra1===undefined || sifra1===""){
+                validacija+="Neispravna lozinka\n";
+            }
+
+            if(validacija!=""){
+                alert(validacija);
+            }
+
+            else{
+                fetch("https://localhost:5001/Korisnik/NadjiAdmina/"+username1+"/"+sifra1,
+                {
+                    method:"GET"
+                }).then(s=>{
+                    if(s.ok){
+
+                        host.querySelector(".divPijacaObrisiDole").innerHTML="";
+
+                        host.querySelector(".inputPijacaObrisiUsername").disabled=true;
+                        host.querySelector(".inputPijacaObrisiUsername").style.cursor="not-allowed";
+
+                        host.querySelector(".inputPijacaObrisiSifra").disabled=true;
+                        host.querySelector(".inputPijacaObrisiSifra").style.cursor="not-allowed";
+
+                        host.querySelector(".btnPijacaObrisiPrijaviSe").disabled=true;
+                        host.querySelector(".btnPijacaObrisiPrijaviSe").style.cursor="not-allowed";
+
+
+                        l=document.createElement("div");
+                        l.className="divPijacaObrisiNaziv";
+                        host.querySelector(".divPijacaObrisiDole").appendChild(l);
+                        
+                
+                        l=document.createElement("label");
+                        l.innerHTML="Naziv";
+                        host.querySelector(".divPijacaObrisiNaziv").appendChild(l);
+                
+                        
+                        i=document.createElement("input");
+                        i.className="inputPijacaObrisiNaziv";
+                        host.querySelector(".divPijacaObrisiNaziv").appendChild(i);
+                
+                
+                
+                
+                        l=document.createElement("div");
+                        l.className="divPijacaObrisiDugmeDole";
+                        host.querySelector(".divPijacaObrisiDole").appendChild(l);
+                
+                        let btn1 = document.createElement("button");
+                        btn1.innerHTML="Obrisi pijacu";
+                        btn1.className="btnObrisi";
+                        btn1.classList.add("btnObrisiSelect");
+                        host.querySelector(".divPijacaObrisiDugmeDole").appendChild(btn1);
+                
+                
+                
+                
+                        d = document.createElement("div");
+                        d.className="divPijacaObrisiDole1";
+                        d.innerHTML="";
+                        host.appendChild(d);
+
+
+                        btn1.onclick=(ev)=>{
+
+                            let naziv1=host.querySelector(".inputPijacaObrisiNaziv").value;
+
+                            if(naziv1===null || naziv1===undefined || naziv1===""){
+                                validacija+="Neispravan\n";
+                            }
+                            fetch("https://localhost:5001/Pijaca/PreuzmiPijacu/"+naziv1,
+                            {
+                                method:"GET"
+                            }).then(s=>{
+                                if(s.ok){
+                                    s.json().then(data=>{
+                                        const novaPijaca = new Pijaca(data.naziv, data.lokacija, data.adresa, data.telefon);
+                                        novaPijaca.crtajPijacu(this.kontejner.querySelector(".PrikazDesno")); 
+
+                                        host.querySelector(".inputPijacaObrisiNaziv").disabled=true;
+                                        host.querySelector(".inputPijacaObrisiNaziv").style.cursor="not-allowed";
+
+                                        host.querySelector(".btnObrisiSelect").disabled=true;
+                                        host.querySelector(".btnObrisiSelect").style.cursor="not-allowed";
+
+
+                                        host.querySelector(".divPijacaObrisiDole1").innerHTML="";
+
+                                        d=document.createElement("div");
+                                        d.className="divLabelaObrisiPijacu";
+                                        host.querySelector(".divPijacaObrisiDole1").appendChild(d);
+
+                                        l=document.createElement("label");
+                                        l.innerHTML="Da li ste sigurni?"
+                                        l.className="lblPrikazLevoNaslov";
+                                        host.querySelector(".divLabelaObrisiPijacu").appendChild(l);
+
+
+
+
+
+                                        d=document.createElement("div");
+                                        d.className="divObrisiPijacuDugmici";
+                                        host.querySelector(".divPijacaObrisiDole1").appendChild(d);
+
+                                        d=document.createElement("div");
+                                        d.className="divObrisiPijacuDugmiciPotvrdi";
+                                        host.querySelector(".divObrisiPijacuDugmici").appendChild(d);
+
+                                        d=document.createElement("div");
+                                        d.className="divObrisiPijacuDugmiciPonisti";
+                                        host.querySelector(".divObrisiPijacuDugmici").appendChild(d);
+
+
+
+
+                                        let btnPotvrdi=document.createElement("button");
+                                        btnPotvrdi.className="divObrisiPijacuPotvrdi";
+                                        btnPotvrdi.innerHTML="Potvrdi";
+                                        host.querySelector(".divObrisiPijacuDugmiciPotvrdi").appendChild(btnPotvrdi);
+
+                                        let btnPonisti=document.createElement("button");
+                                        btnPonisti.className="btnObrisiPijacuPonisti";
+                                        btnPonisti.innerHTML="Ponisti";
+                                        host.querySelector(".divObrisiPijacuDugmiciPotvrdi").appendChild(btnPonisti);
+
+
+                                        btnPotvrdi.onclick=(ev)=>{
+                                            fetch("https://localhost:5001/Pijaca/ObrisiPijacu/"+naziv1,
+                                            {
+                                                method:"DELETE"
+                                            }).then(s=>{
+                                                if(s.ok){
+                                                    this.kontejner.querySelector(".PrikazDesno").innerHTML="";
+                                                    this.crtaj(document.body);
+                                                    alert("Pijaca uspesno obrisana");
+                                                }
+                                                else{
+                                                    s.text().then(data=>{
+                                                        alert(data);
+                                                    })
+                                                }
+                                            })
+                                        }
+                                        
+                                        btnPonisti.onclick=(ev)=>{
+                                            this.kontejner.querySelector(".PrikazDesno").innerHTML="";
+                                            this.obrisiPijacu(host);                            
+                                        }
+                                    })
+                                }
+                                else{
+                                    s.text().then(data=>{
+                                        alert(data);
+                                    })
+                                }
+                            })
+                        }
+
+
+                    }
+                    else{
+                        s.text().then(data=>{
+                            alert(data);
+                        })
+                    }
+                })
+            }
+        }
     }
 
     filtrirajOglase(host){
