@@ -4,7 +4,7 @@ import { Pijaca } from "./Pijaca.js";
 
 export class Oglas{
 
-    constructor(usernameKorisnika, adresaKorisnika, brojSasijeAutomobila, cenaOglasa, datumOglasa, emailKorisnika, godisteAutomobila, gorivoAutomobila, gradKorisnika, imeKorisnika, jmbgKorisnika, karoserijaAutomobila, kilometrazaAutomobila, kubikazaAutomobila, lokacijaPijace, markaAutomobila, modelAutomobila, nazivPijace, prezimeKorisnika, sifraOglasa, snagaMotoraAutomobila, telefonKorisnika, telefonPijace, slikaKorisnika){
+    constructor(usernameKorisnika, adresaKorisnika, brojSasijeAutomobila, cenaOglasa, datumOglasa, emailKorisnika, godisteAutomobila, gorivoAutomobila, gradKorisnika, imeKorisnika, jmbgKorisnika, karoserijaAutomobila, kilometrazaAutomobila, kubikazaAutomobila, lokacijaPijace, markaAutomobila, modelAutomobila, nazivPijace, prezimeKorisnika, sifraOglasa, snagaMotoraAutomobila, telefonKorisnika, telefonPijace, slikaKorisnika, adresaPijace){
         this.usernameKorisnika=usernameKorisnika;
         // this.sifraKorisnika=sifraKorisnika;
         this.adresaKorisnika=adresaKorisnika;
@@ -29,6 +29,7 @@ export class Oglas{
         this.snagaMotoraAutomobila=snagaMotoraAutomobila;
         this.telefonKorisnika=telefonKorisnika;
         this.telefonPijace=telefonPijace;
+        this.adresaPijace=adresaPijace;
         this.slikaKorisnika=slikaKorisnika;
     }
 
@@ -140,7 +141,7 @@ export class Oglas{
 
         host.querySelector(".divNoviOglas").onclick=()=>{
 
-            let novaPijaca = new Pijaca(this.nazivPijace, this.lokacijaPijace, this.telefonPijace);
+            let novaPijaca = new Pijaca(this.nazivPijace, this.lokacijaPijace, this.adresaPijace, this.telefonPijace);
             novaPijaca.crtajPijacu(host);
 
             let noviAutomobil= new Automobil(this.brojSasijeAutomobila, this.markaAutomobila, this.modelAutomobila, this.godisteAutomobila, this.kilometrazaAutomobila, this.karoserijaAutomobila, this.gorivoAutomobila, this.kubikazaAutomobila, this.snagaMotoraAutomobila, this.usernameKorisnika, this.nazivPijace);
@@ -280,7 +281,7 @@ export class Oglas{
             d.className="divNoviOglas"+index;
             host.appendChild(d);
 
-            let novaPijaca = new Pijaca(this.nazivPijace, this.lokacijaPijace, this.telefonPijace);
+            let novaPijaca = new Pijaca(this.nazivPijace, this.lokacijaPijace, this.adresaPijace, this.telefonPijace);
             novaPijaca.crtajPijacu(host);
 
 

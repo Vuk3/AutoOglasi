@@ -1612,7 +1612,7 @@ export class Sajt{
                             }
                             else{
                                 data1.forEach((data,index)=>{
-                                    const noviOglas = new Oglas(data.usernamekorisnika, data.adresaKorisnika, data.brojSasijeAutomobila, data.cena, data.datum, data.emailKorisnika, data.godisteAutomobila, data.gorivoAutomobila, data.gradKorisnika, data.imeKorisnika, data.jmbGkorisnika, data.karoserijaAutomobila, data.kilometrazaAutomobila, data.kubikazaAutomobila, data.lokacijaPijace, data.markaAutomobila, data.modelAutomobila, data.nazivPijace, data.prezimeKorisnika, data.sifraOglasa, data.snagaMotoraAutomobila, data.telefonKorisnika, data.telefonPijace, data.slikaKorisnika);
+                                    const noviOglas = new Oglas(data.usernamekorisnika, data.adresaKorisnika, data.brojSasijeAutomobila, data.cena, data.datum, data.emailKorisnika, data.godisteAutomobila, data.gorivoAutomobila, data.gradKorisnika, data.imeKorisnika, data.jmbGkorisnika, data.karoserijaAutomobila, data.kilometrazaAutomobila, data.kubikazaAutomobila, data.lokacijaPijace, data.markaAutomobila, data.modelAutomobila, data.nazivPijace, data.prezimeKorisnika, data.sifraOglasa, data.snagaMotoraAutomobila, data.telefonKorisnika, data.telefonPijace, data.slikaKorisnika, data.adresaPijace);
                                     noviOglas.crtajOglase(this.kontejner.querySelector(".PrikazDesno"), index);    
                                 })
                             }
@@ -1685,7 +1685,7 @@ export class Sajt{
                 }).then(s=>{
                     if(s.ok){
                         s.json().then(data=>{
-                            const noviOglas = new Oglas(data.usernamekorisnika, data.adresaKorisnika, data.brojSasijeAutomobila, data.cena, data.datum, data.emailKorisnika, data.godisteAutomobila, data.gorivoAutomobila, data.gradKorisnika, data.imeKorisnika, data.jmbGkorisnika, data.karoserijaAutomobila, data.kilometrazaAutomobila, data.kubikazaAutomobila, data.lokacijaPijace, data.markaAutomobila, data.modelAutomobila, data.nazivPijace, data.prezimeKorisnika, data.sifraOglasa, data.snagaMotoraAutomobila, data.telefonKorisnika, data.telefonPijace, data.slikaKorisnika);
+                            const noviOglas = new Oglas(data.usernamekorisnika, data.adresaKorisnika, data.brojSasijeAutomobila, data.cena, data.datum, data.emailKorisnika, data.godisteAutomobila, data.gorivoAutomobila, data.gradKorisnika, data.imeKorisnika, data.jmbGkorisnika, data.karoserijaAutomobila, data.kilometrazaAutomobila, data.kubikazaAutomobila, data.lokacijaPijace, data.markaAutomobila, data.modelAutomobila, data.nazivPijace, data.prezimeKorisnika, data.sifraOglasa, data.snagaMotoraAutomobila, data.telefonKorisnika, data.telefonPijace, data.slikaKorisnika, data.adresaPijace);
                             noviOglas.crtajOglas(this.kontejner.querySelector(".PrikazDesno"));    
                         })
                     }
@@ -1834,7 +1834,7 @@ export class Sajt{
                             host.querySelector(".divOglasDodajBrojSasijePijaca").appendChild(l);
                 
                             l=document.createElement("label");
-                            l.innerHTML="Broj sasije automobila";
+                            l.innerHTML="Broj sasije";
                             host.querySelector(".divOglasDodajBrojSasije").appendChild(l);
                 
                             i=document.createElement("input");
@@ -1900,7 +1900,7 @@ export class Sajt{
                                         if(s.ok){
                                             s.json().then(data=>{
                                                 console.log(data);
-                                                const noviOglas = new Oglas(data.usernamekorisnika, data.adresaKorisnika, data.brojSasijeAutomobila, data.cena, data.datum, data.emailKorisnika, data.godisteAutomobila, data.gorivoAutomobila, data.gradKorisnika, data.imeKorisnika, data.jmbGkorisnika, data.karoserijaAutomobila, data.kilometrazaAutomobila, data.kubikazaAutomobila, data.lokacijaPijace, data.markaAutomobila, data.modelAutomobila, data.nazivPijace, data.prezimeKorisnika, data.sifraOglasa, data.snagaMotoraAutomobila, data.telefonKorisnika, data.telefonPijace, data.slikaKorisnika);
+                                                const noviOglas = new Oglas(data.usernamekorisnika, data.adresaKorisnika, data.brojSasijeAutomobila, data.cena, data.datum, data.emailKorisnika, data.godisteAutomobila, data.gorivoAutomobila, data.gradKorisnika, data.imeKorisnika, data.jmbGkorisnika, data.karoserijaAutomobila, data.kilometrazaAutomobila, data.kubikazaAutomobila, data.lokacijaPijace, data.markaAutomobila, data.modelAutomobila, data.nazivPijace, data.prezimeKorisnika, data.sifraOglasa, data.snagaMotoraAutomobila, data.telefonKorisnika, data.telefonPijace, data.slikaKorisnika, data.adresaPijace);
                                                 noviOglas.crtajOglas(this.kontejner.querySelector(".PrikazDesno"));
                                             })
                                         }
@@ -2077,7 +2077,7 @@ export class Sajt{
                             }).then(s=>{
                                 if(s.ok){
                                     s.json().then(data=>{
-                                        const noviOglas = new Oglas(data.usernamekorisnika, data.adresaKorisnika, data.brojSasijeAutomobila, data.cena, data.datum, data.emailKorisnika, data.godisteAutomobila, data.gorivoAutomobila, data.gradKorisnika, data.imeKorisnika, data.jmbGkorisnika, data.karoserijaAutomobila, data.kilometrazaAutomobila, data.kubikazaAutomobila, data.lokacijaPijace, data.markaAutomobila, data.modelAutomobila, data.nazivPijace, data.prezimeKorisnika, data.sifraOglasa, data.snagaMotoraAutomobila, data.telefonKorisnika, data.telefonPijace, data.slikaKorisnika);
+                                        const noviOglas = new Oglas(data.usernamekorisnika, data.adresaKorisnika, data.brojSasijeAutomobila, data.cena, data.datum, data.emailKorisnika, data.godisteAutomobila, data.gorivoAutomobila, data.gradKorisnika, data.imeKorisnika, data.jmbGkorisnika, data.karoserijaAutomobila, data.kilometrazaAutomobila, data.kubikazaAutomobila, data.lokacijaPijace, data.markaAutomobila, data.modelAutomobila, data.nazivPijace, data.prezimeKorisnika, data.sifraOglasa, data.snagaMotoraAutomobila, data.telefonKorisnika, data.telefonPijace, data.slikaKorisnika, data.adresaPijace);
                                         noviOglas.crtajOglas(this.kontejner.querySelector(".PrikazDesno"));
                                         
                                         
@@ -2126,7 +2126,7 @@ export class Sajt{
                                             }).then(s=>{
                                                 if(s.ok){
                                                     s.json().then(data=>{
-                                                        const noviOglas = new Oglas(data.usernamekorisnika, data.adresaKorisnika, data.brojSasijeAutomobila, data.cena, data.datum, data.emailKorisnika, data.godisteAutomobila, data.gorivoAutomobila, data.gradKorisnika, data.imeKorisnika, data.jmbGkorisnika, data.karoserijaAutomobila, data.kilometrazaAutomobila, data.kubikazaAutomobila, data.lokacijaPijace, data.markaAutomobila, data.modelAutomobila, data.nazivPijace, data.prezimeKorisnika, data.sifraOglasa, data.snagaMotoraAutomobila, data.telefonKorisnika, data.telefonPijace, data.slikaKorisnika);
+                                                        const noviOglas = new Oglas(data.usernamekorisnika, data.adresaKorisnika, data.brojSasijeAutomobila, data.cena, data.datum, data.emailKorisnika, data.godisteAutomobila, data.gorivoAutomobila, data.gradKorisnika, data.imeKorisnika, data.jmbGkorisnika, data.karoserijaAutomobila, data.kilometrazaAutomobila, data.kubikazaAutomobila, data.lokacijaPijace, data.markaAutomobila, data.modelAutomobila, data.nazivPijace, data.prezimeKorisnika, data.sifraOglasa, data.snagaMotoraAutomobila, data.telefonKorisnika, data.telefonPijace, data.slikaKorisnika, data.adresaPijace);
                                                         let w = this.kontejner.querySelector(".PrikazDesno");
                                                         w.innerHTML="";
                                                         noviOglas.crtajOglas(this.kontejner.querySelector(".PrikazDesno"));
@@ -2334,7 +2334,7 @@ export class Sajt{
                                     }).then(s=>{
                                         if(s.ok){
                                             s.json().then(data=>{
-                                                const noviOglas = new Oglas(data.usernamekorisnika, data.adresaKorisnika, data.brojSasijeAutomobila, data.cena, data.datum, data.emailKorisnika, data.godisteAutomobila, data.gorivoAutomobila, data.gradKorisnika, data.imeKorisnika, data.jmbGkorisnika, data.karoserijaAutomobila, data.kilometrazaAutomobila, data.kubikazaAutomobila, data.lokacijaPijace, data.markaAutomobila, data.modelAutomobila, data.nazivPijace, data.prezimeKorisnika, data.sifraOglasa, data.snagaMotoraAutomobila, data.telefonKorisnika, data.telefonPijace, data.slikaKorisnika);
+                                                const noviOglas = new Oglas(data.usernamekorisnika, data.adresaKorisnika, data.brojSasijeAutomobila, data.cena, data.datum, data.emailKorisnika, data.godisteAutomobila, data.gorivoAutomobila, data.gradKorisnika, data.imeKorisnika, data.jmbGkorisnika, data.karoserijaAutomobila, data.kilometrazaAutomobila, data.kubikazaAutomobila, data.lokacijaPijace, data.markaAutomobila, data.modelAutomobila, data.nazivPijace, data.prezimeKorisnika, data.sifraOglasa, data.snagaMotoraAutomobila, data.telefonKorisnika, data.telefonPijace, data.slikaKorisnika, data.adresaPijace);
                                                 noviOglas.crtajOglas(this.kontejner.querySelector(".PrikazDesno")); 
                                             })
                                             d=host.querySelector(".divOglasObrisiDole2");
@@ -3680,7 +3680,7 @@ export class Sajt{
                             }
                             else{
                                 data1.forEach((data,index)=>{
-                                    const noviOglas = new Oglas(data.usernamekorisnika, data.adresaKorisnika, data.brojSasijeAutomobila, data.cena, data.datum, data.emailKorisnika, data.godisteAutomobila, data.gorivoAutomobila, data.gradKorisnika, data.imeKorisnika, data.jmbGkorisnika, data.karoserijaAutomobila, data.kilometrazaAutomobila, data.kubikazaAutomobila, data.lokacijaPijace, data.markaAutomobila, data.modelAutomobila, data.nazivPijace, data.prezimeKorisnika, data.sifraOglasa, data.snagaMotoraAutomobila, data.telefonKorisnika, data.telefonPijace, data.slikaKorisnika);
+                                    const noviOglas = new Oglas(data.usernamekorisnika, data.adresaKorisnika, data.brojSasijeAutomobila, data.cena, data.datum, data.emailKorisnika, data.godisteAutomobila, data.gorivoAutomobila, data.gradKorisnika, data.imeKorisnika, data.jmbGkorisnika, data.karoserijaAutomobila, data.kilometrazaAutomobila, data.kubikazaAutomobila, data.lokacijaPijace, data.markaAutomobila, data.modelAutomobila, data.nazivPijace, data.prezimeKorisnika, data.sifraOglasa, data.snagaMotoraAutomobila, data.telefonKorisnika, data.telefonPijace, data.slikaKorisnika, data.adresaPijace);
                                     noviOglas.crtajOglase(this.kontejner.querySelector(".PrikazDesno"), index);    
                                 })
                             }

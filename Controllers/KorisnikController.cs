@@ -59,6 +59,10 @@ namespace Web_Projekat_18036.Controllers
             
             try{
 
+                if(usernameKorisnika=="Admin"){
+                    return BadRequest("Ne prikazujemo informacije o adminu");
+                }
+
                 if(string.IsNullOrWhiteSpace(usernameKorisnika)){
                     return BadRequest("Nevalidan JMBG");
                 }
@@ -232,7 +236,9 @@ namespace Web_Projekat_18036.Controllers
         [HttpGet]
         public async Task<ActionResult> NadjiKorisnika(string usernameKorisnika, string sifraKorisnika){
             try{
-
+                if(usernameKorisnika=="Admin"){
+                    return BadRequest("Ne prikazujemo informacije o adminu");
+                }
 
                 if(string.IsNullOrWhiteSpace(usernameKorisnika)){
                     return BadRequest("Nevalidno korisnicko ime");
@@ -322,7 +328,10 @@ namespace Web_Projekat_18036.Controllers
         public async Task<ActionResult> NadjiKorisnikaBezSifre(string usernameKorisnika){
             try{
 
-
+                if(usernameKorisnika=="Admin"){
+                    return BadRequest("Ne prikazujemo informacije o adminu");
+                }
+                
                 if(string.IsNullOrWhiteSpace(usernameKorisnika)){
                     return BadRequest("Nevalidno korisnicko ime");
                 }

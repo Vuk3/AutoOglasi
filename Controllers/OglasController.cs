@@ -73,6 +73,7 @@ namespace Web_Projekat_18036.Controllers
                         Pijaca = new {
                             nazivPijace=p.pijaca.naziv,
                             lokacijaPijace=p.pijaca.lokacija,
+                            adresaPijace=p.pijaca.adresa,
                             telefonPijace=p.pijaca.telefon
                         }
 
@@ -142,6 +143,7 @@ namespace Web_Projekat_18036.Controllers
                         // Pijaca = new{
                         nazivPijace=p.pijaca.naziv,
                         lokacijaPijace=p.pijaca.lokacija,
+                        adresaPijace=p.pijaca.adresa,
                         telefonPijace=p.pijaca.telefon
                         // }
 
@@ -218,6 +220,7 @@ namespace Web_Projekat_18036.Controllers
                         // Pijaca = new{
                         nazivPijace=p.pijaca.naziv,
                         lokacijaPijace=p.pijaca.lokacija,
+                        adresaPijace=p.pijaca.adresa,
                         telefonPijace=p.pijaca.telefon
                         // }
 
@@ -295,6 +298,7 @@ namespace Web_Projekat_18036.Controllers
                         // Pijaca = new{
                         nazivPijace=p.pijaca.naziv,
                         lokacijaPijace=p.pijaca.lokacija,
+                        adresaPijace=p.pijaca.adresa,
                         telefonPijace=p.pijaca.telefon
                         // }
 
@@ -454,6 +458,7 @@ namespace Web_Projekat_18036.Controllers
                         // Pijaca = new{
                         nazivPijace=p.pijaca.naziv,
                         lokacijaPijace=p.pijaca.lokacija,
+                        adresaPijace=p.pijaca.adresa,
                         telefonPijace=p.pijaca.telefon
                         // }
 
@@ -550,6 +555,7 @@ namespace Web_Projekat_18036.Controllers
                         // Pijaca = new{
                         nazivPijace=p.pijaca.naziv,
                         lokacijaPijace=p.pijaca.lokacija,
+                        adresaPijace=p.pijaca.adresa,
                         telefonPijace=p.pijaca.telefon
                         // }
 
