@@ -8,11 +8,56 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
-.glavniNaslov{
-    font-size: 30px;
+.glavniNaslov {
     margin-bottom: 10px;
     cursor: pointer;
+    display: flex;
+    min-width: 50px;
+    width: 100%;
+  }
+
+  .Futer{
+    /* position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: red;
+    color: white;
+    text-align: center; */
+
+    margin-top: auto;
+    min-height: 50px;
+    background-color: black;
+    color: white;
+    opacity: 80%;
+    
+
+    
+  }
+
+
+.x{
+    height: 25px;
+    width: 25px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+    
 }
+
+.h{
+    position: relative;
+    height: 20px;
+}
+
+  .divFuter{
+    display: flex;
+    justify-content: center;
+    height: fit-content;
+    align-items: center;
+    height: 50px;
+  }
 
 
 
@@ -88,8 +133,6 @@ body{
 
 
 }
-
-
 
 
 
@@ -341,6 +384,7 @@ button:hover, button:focus{
     justify-content: center;
     margin-bottom: 10px;
     font-size: 25px;
+    text-align: center;
 }
 
 .divDodajKorisnikaUsername, .divKorisnikIzmeniJMBG, .divKorisnikIzmeniUsername, .divAutomobilIzmeniUsername, .divPijacaDodajUsername, .divPijacaIzmeniUsername, .divPijacaObrisiUsername, .divPijacaObrisiSifra, .divPijacaIzmeniSifra, .divPijacaDodajNaziv, .divPijacaDodajLokacija, .divPijacaSveSifra, .divPijacaSveUsername, .divPijacaDodajAdresa, .divPijacaDodajTelefon{
@@ -615,8 +659,12 @@ button:hover, button:focus{
     .PrikazDesno{
         margin-left: 10px;
     }
-    [class^="divNovaPijaca"], [class^="divNoviOglas"]{
+    [class^="divNovaPijaca"], [class^="divNoviOglas"], .divNoviKorisnik, .divNoviAutomobil{
         margin-left: 0px;
+    }
+
+    .divDugmiciKorisnik, .divDugmiciAutomobil, .divDugmiciOglas, .divDugmiciPijaca{
+        min-width: 80px;
     }
 }
 

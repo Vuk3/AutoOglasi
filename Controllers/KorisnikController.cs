@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -115,6 +116,7 @@ namespace Web_Projekat_18036.Controllers
                         // Pijaca = new{
                         nazivPijace=p.pijaca.naziv,
                         lokacijaPijace=p.pijaca.lokacija,
+                        adresaPijace=p.pijaca.adresa,
                         telefonPijace=p.pijaca.telefon
 
                     
@@ -141,6 +143,11 @@ namespace Web_Projekat_18036.Controllers
             try{
                 if(JMBGKorisnika.Length!=13){
                     return BadRequest("Nevalidan JMBG");
+                }
+
+                Regex regex = new Regex(@"^\d+$");
+                if(!regex.IsMatch(JMBGKorisnika)){
+                    return BadRequest("JMBG sadrzi samo cifre!");
                 }
 
                 if(string.IsNullOrWhiteSpace(usernameKorisnika)){
@@ -331,7 +338,7 @@ namespace Web_Projekat_18036.Controllers
                 if(usernameKorisnika=="Admin"){
                     return BadRequest("Ne prikazujemo informacije o adminu");
                 }
-                
+
                 if(string.IsNullOrWhiteSpace(usernameKorisnika)){
                     return BadRequest("Nevalidno korisnicko ime");
                 }
@@ -513,7 +520,7 @@ namespace Web_Projekat_18036.Controllers
                 ).FirstOrDefaultAsync();
 
                 if (probniKorisnik==null){
-                    return BadRequest("Korisnik sa ovim podacima ne postoji u");
+                    return BadRequest("Korisnik sa ovim podacima ne postoji u bazi");
                 }
 
                 return Ok(

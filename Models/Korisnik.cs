@@ -15,7 +15,7 @@ namespace Models{
         [Required]
         [MaxLength(13)]
         [MinLength(13)]
-        // [RegularExpression(@"^\d$")]
+        [RegularExpression(@"^\d+$")]
         public string JMBG { get; set; }
 
         [Required]

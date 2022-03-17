@@ -12,7 +12,7 @@ var listaPijaca = [];
 //             listaPijaca.push(p);
 //         });
 //     })
-    var s = new Sajt(listaPijaca);
+    var s = new Sajt();
     s.crtaj(document.body);
 
     // var ss = new Sajt(listaPijaca);

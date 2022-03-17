@@ -297,7 +297,7 @@ export class Automobil{
                 }).then(s=>{
                     if(s.ok){
                         s.json().then(data=>{
-                            const novaPijaca = new Pijaca(data.naziv, data.lokacija, data.telefon);
+                            const novaPijaca = new Pijaca(data.naziv, data.lokacija, data.adresa, data.telefon);
                             novaPijaca.crtajPijacu(host);
                         })
                     }

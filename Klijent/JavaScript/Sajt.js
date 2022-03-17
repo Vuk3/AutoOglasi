@@ -5,8 +5,7 @@ import { Pijaca } from "./Pijaca.js";
 
 export class Sajt{
     
-    constructor(listaPijaca){
-        this.listaPijaca=listaPijaca;
+    constructor(){
         this.kontejner=null;
     }
 
@@ -46,6 +45,12 @@ export class Sajt{
         kontejnerPrikazDesno.className="PrikazDesno";
         kontejnerPrikaz.appendChild(kontejnerPrikazDesno); 
 
+        let kontejnerFuter = document.createElement("div");
+        kontejnerFuter.className="Futer";
+        this.kontejner.appendChild(kontejnerFuter);
+
+
+
 
 
 
@@ -53,16 +58,32 @@ export class Sajt{
 
         this.crtajHeder(kontejnerHeder);
         this.crtajDugmice(kontejnerDugmici);
+        this.crtajFuter(kontejnerFuter);
 
     }
 
 
     crtajHeder(host){
-        let l = document.createElement("label");
-        l.innerHTML="Auto Oglasi";
+        let d =document.createElement("div");
+        d.className="divNaslov";
+        host.appendChild(d);
+
+
+        let l = document.createElement("img");
+        l.src="../Slike/autooglasi.png"
         l.className="glavniNaslov";
         l.onclick=(ev)=>this.crtaj(document.body);
-        host.appendChild(l);
+        d.appendChild(l);
+    }
+
+    crtajFuter(host){
+        let d =document.createElement("div");
+        d.className="divFuter";
+        host.appendChild(d);
+
+        let l = document.createElement("label");
+        l.innerHTML="Copyright © Auto Oglasi";
+        d.appendChild(l);
     }
 
     crtajDugmice(host){
@@ -335,17 +356,39 @@ export class Sajt{
         host.innerHTML="";
 
         host.classList.add("PrikazLevoDodajPadding");
+        host.classList.remove("PrikazLevoObrisiPadding");
 
         let l;
         let i;
         let btn;
         let d;
 
+        let h = document.createElement("div");
+        h.className="h";
+        host.appendChild(h);
+
+        let x = document.createElement("img");
+        x.src="../Slike/x.ico";
+        x.className="x";
+        h.appendChild(x);
+
+
+        x.onclick=(ev)=>{
+            host.innerHTML="";
+            host.classList.add("PrikazLevoObrisiPadding");
+            host.classList.remove("PrikazLevoDodajPadding");
+        }
+
+
+
 
         l=document.createElement("label");
         l.innerHTML="Dodaj pijacu";
         l.className="lblPrikazLevoNaslov";
         host.appendChild(l);
+
+
+
 
 
         l=document.createElement("div");
@@ -626,11 +669,29 @@ export class Sajt{
         host.innerHTML="";
 
         host.classList.add("PrikazLevoDodajPadding");
+        host.classList.remove("PrikazLevoObrisiPadding");
 
         let l;
         let i;
         let btn;
         let d;
+
+
+        let h = document.createElement("div");
+        h.className="h";
+        host.appendChild(h);
+
+        let x = document.createElement("img");
+        x.src="../Slike/x.ico";
+        x.className="x";
+        h.appendChild(x);
+
+
+        x.onclick=(ev)=>{
+            host.innerHTML="";
+            host.classList.add("PrikazLevoObrisiPadding");
+            host.classList.remove("PrikazLevoDodajPadding");
+        }
 
 
         l=document.createElement("label");
@@ -886,10 +947,28 @@ export class Sajt{
         host.innerHTML="";
 
         host.classList.add("PrikazLevoDodajPadding");
+        host.classList.remove("PrikazLevoObrisiPadding");
 
         let l;
         let i;
         let btn;
+
+
+        let h = document.createElement("div");
+        h.className="h";
+        host.appendChild(h);
+
+        let x = document.createElement("img");
+        x.src="../Slike/x.ico";
+        x.className="x";
+        h.appendChild(x);
+
+
+        x.onclick=(ev)=>{
+            host.innerHTML="";
+            host.classList.add("PrikazLevoObrisiPadding");
+            host.classList.remove("PrikazLevoDodajPadding");
+        }
 
 
         l=document.createElement("label");
@@ -959,11 +1038,29 @@ export class Sajt{
         host.innerHTML="";
 
         host.classList.add("PrikazLevoDodajPadding");
+        host.classList.remove("PrikazLevoObrisiPadding");
 
         let l;
         let i;
         let btn;
         let d;
+
+
+        let h = document.createElement("div");
+        h.className="h";
+        host.appendChild(h);
+
+        let x = document.createElement("img");
+        x.src="../Slike/x.ico";
+        x.className="x";
+        h.appendChild(x);
+
+
+        x.onclick=(ev)=>{
+            host.innerHTML="";
+            host.classList.add("PrikazLevoObrisiPadding");
+            host.classList.remove("PrikazLevoDodajPadding");
+        }
 
 
         l=document.createElement("label");
@@ -1093,11 +1190,29 @@ export class Sajt{
         host.innerHTML="";
 
         host.classList.add("PrikazLevoDodajPadding");
+        host.classList.remove("PrikazLevoObrisiPadding");
 
         let l;
         let i;
         let btn;
         let d;
+
+
+        let h = document.createElement("div");
+        h.className="h";
+        host.appendChild(h);
+
+        let x = document.createElement("img");
+        x.src="../Slike/x.ico";
+        x.className="x";
+        h.appendChild(x);
+
+
+        x.onclick=(ev)=>{
+            host.innerHTML="";
+            host.classList.add("PrikazLevoObrisiPadding");
+            host.classList.remove("PrikazLevoDodajPadding");
+        }
 
 
         l=document.createElement("label");
@@ -1350,11 +1465,29 @@ export class Sajt{
         host.innerHTML="";
 
         host.classList.add("PrikazLevoDodajPadding");
+        host.classList.remove("PrikazLevoObrisiPadding");
         
 
         let l;
         let i;
         let op;
+
+
+        let h = document.createElement("div");
+        h.className="h";
+        host.appendChild(h);
+
+        let x = document.createElement("img");
+        x.src="../Slike/x.ico";
+        x.className="x";
+        h.appendChild(x);
+
+
+        x.onclick=(ev)=>{
+            host.innerHTML="";
+            host.classList.add("PrikazLevoObrisiPadding");
+            host.classList.remove("PrikazLevoDodajPadding");
+        }
 
         l=document.createElement("label");
         l.innerHTML="Pretrazi automobile";
@@ -1634,10 +1767,28 @@ export class Sajt{
         host.innerHTML="";
 
         host.classList.add("PrikazLevoDodajPadding");
+        host.classList.remove("PrikazLevoObrisiPadding");
 
         let l;
         let i;
         let btn;
+
+
+        let h = document.createElement("div");
+        h.className="h";
+        host.appendChild(h);
+
+        let x = document.createElement("img");
+        x.src="../Slike/x.ico";
+        x.className="x";
+        h.appendChild(x);
+
+
+        x.onclick=(ev)=>{
+            host.innerHTML="";
+            host.classList.add("PrikazLevoObrisiPadding");
+            host.classList.remove("PrikazLevoDodajPadding");
+        }
 
 
         l=document.createElement("label");
@@ -1707,9 +1858,27 @@ export class Sajt{
         host.innerHTML="";
 
         host.classList.add("PrikazLevoDodajPadding");
+        host.classList.remove("PrikazLevoObrisiPadding");
 
         let l;
         let i;
+
+
+        let h = document.createElement("div");
+        h.className="h";
+        host.appendChild(h);
+
+        let x = document.createElement("img");
+        x.src="../Slike/x.ico";
+        x.className="x";
+        h.appendChild(x);
+
+
+        x.onclick=(ev)=>{
+            host.innerHTML="";
+            host.classList.add("PrikazLevoObrisiPadding");
+            host.classList.remove("PrikazLevoDodajPadding");
+        }
 
 
         l=document.createElement("label");
@@ -1765,6 +1934,7 @@ export class Sajt{
         let btn = document.createElement("button");
         btn.innerHTML="Prijavi se";
         btn.className="btnNadji";
+        btn.classList.add("btnDodajOglasPrijaviSe");
         host.querySelector(".divOglasDodajPrijaviSeDugme").appendChild(btn);
 
         let d=document.createElement("div");
@@ -1802,7 +1972,13 @@ export class Sajt{
                             // })
 
                             host.querySelector(".inputOglasDodajVlasnik").disabled=true;
+                            host.querySelector(".inputOglasDodajVlasnik").style.cursor="not-allowed";
+
                             host.querySelector(".inputOglasDodajSifra").disabled=true;
+                            host.querySelector(".inputOglasDodajSifra").style.cursor="not-allowed";
+
+                            host.querySelector(".btnDodajOglasPrijaviSe").disabled=true;
+                            host.querySelector(".btnDodajOglasPrijaviSe").style.cursor="not-allowed";
 
                             d=host.querySelector(".divOglasDodajDole");
                             d.innerHTML="";
@@ -1934,10 +2110,28 @@ export class Sajt{
         host.innerHTML="";
 
         host.classList.add("PrikazLevoDodajPadding");
+        host.classList.remove("PrikazLevoObrisiPadding");
 
         let l;
         let i;
         let btn;
+
+
+        let h = document.createElement("div");
+        h.className="h";
+        host.appendChild(h);
+
+        let x = document.createElement("img");
+        x.src="../Slike/x.ico";
+        x.className="x";
+        h.appendChild(x);
+
+
+        x.onclick=(ev)=>{
+            host.innerHTML="";
+            host.classList.add("PrikazLevoObrisiPadding");
+            host.classList.remove("PrikazLevoDodajPadding");
+        }
 
 
         l=document.createElement("label");
@@ -2191,10 +2385,28 @@ export class Sajt{
         host.innerHTML="";
 
         host.classList.add("PrikazLevoDodajPadding");
+        host.classList.remove("PrikazLevoObrisiPadding");
 
         let l;
         let i;
         let btn;
+
+
+        let h = document.createElement("div");
+        h.className="h";
+        host.appendChild(h);
+
+        let x = document.createElement("img");
+        x.src="../Slike/x.ico";
+        x.className="x";
+        h.appendChild(x);
+
+
+        x.onclick=(ev)=>{
+            host.innerHTML="";
+            host.classList.add("PrikazLevoObrisiPadding");
+            host.classList.remove("PrikazLevoDodajPadding");
+        }
 
 
         l=document.createElement("label");
@@ -2438,10 +2650,28 @@ export class Sajt{
         host.innerHTML="";
 
         host.classList.add("PrikazLevoDodajPadding");
+        host.classList.remove("PrikazLevoObrisiPadding");
 
         let l;
         let i;
         let op;
+
+
+        let h = document.createElement("div");
+        h.className="h";
+        host.appendChild(h);
+
+        let x = document.createElement("img");
+        x.src="../Slike/x.ico";
+        x.className="x";
+        h.appendChild(x);
+
+
+        x.onclick=(ev)=>{
+            host.innerHTML="";
+            host.classList.add("PrikazLevoObrisiPadding");
+            host.classList.remove("PrikazLevoDodajPadding");
+        }
 
         l=document.createElement("label");
         l.innerHTML="Dodaj automobil";
@@ -2539,7 +2769,7 @@ export class Sajt{
 
         
 
-        let nizLabela=["Broj šasije", "Marka", "Model", "Godiste", "Kilometraza", "Karoserija", "Gorivo", "Kubikaza", "Snaga", "Korisnicko ime vlasnika", "Pijaca"];
+        let nizLabela=["Broj šasije", "Marka", "Model", "Godiste", "Kilometraza", "Karoserija", "Gorivo", "Kubikaza", "Snaga", "Korisnicko ime", "Pijaca"];
         let nizInputa=["text", "text", "text", "number", "number", "select", "select", "number", "number", "text", "text"];
         let nizKaroserija = ["Limuzina", "Hecbek", "Karavan", "Kupe", "Kabriolet", "Dzip", "Pickup"];
         let nizGoriva=["Dizel", "Benzin", "Benzin+plin", "ElektricniPogon", "HibridniPogon"];
@@ -2746,11 +2976,29 @@ export class Sajt{
         host.innerHTML="";
 
         host.classList.add("PrikazLevoDodajPadding");
+        host.classList.remove("PrikazLevoObrisiPadding");
 
         let l;
         let i;
         let btn;
         let d;
+
+
+        let h = document.createElement("div");
+        h.className="h";
+        host.appendChild(h);
+
+        let x = document.createElement("img");
+        x.src="../Slike/x.ico";
+        x.className="x";
+        h.appendChild(x);
+
+
+        x.onclick=(ev)=>{
+            host.innerHTML="";
+            host.classList.add("PrikazLevoObrisiPadding");
+            host.classList.remove("PrikazLevoDodajPadding");
+        }
 
 
         l=document.createElement("label");
@@ -3019,9 +3267,27 @@ export class Sajt{
         host.innerHTML="";
 
         host.classList.add("PrikazLevoDodajPadding");
+        host.classList.remove("PrikazLevoObrisiPadding");
 
         let l;
         let i;
+
+
+        let h = document.createElement("div");
+        h.className="h";
+        host.appendChild(h);
+
+        let x = document.createElement("img");
+        x.src="../Slike/x.ico";
+        x.className="x";
+        h.appendChild(x);
+
+
+        x.onclick=(ev)=>{
+            host.innerHTML="";
+            host.classList.add("PrikazLevoObrisiPadding");
+            host.classList.remove("PrikazLevoDodajPadding");
+        }
 
         let izabranaSlika;
         let flag=0;
@@ -3361,10 +3627,28 @@ export class Sajt{
 
 
         host.classList.add("PrikazLevoDodajPadding");
+        host.classList.remove("PrikazLevoObrisiPadding");
 
 
         let l;
         let i;
+
+
+        let h = document.createElement("div");
+        h.className="h";
+        host.appendChild(h);
+
+        let x = document.createElement("img");
+        x.src="../Slike/x.ico";
+        x.className="x";
+        h.appendChild(x);
+
+
+        x.onclick=(ev)=>{
+            host.innerHTML="";
+            host.classList.add("PrikazLevoObrisiPadding");
+            host.classList.remove("PrikazLevoDodajPadding");
+        }
 
         l=document.createElement("label");
         l.innerHTML="Izmeni korisnika";
@@ -3479,18 +3763,6 @@ export class Sajt{
                             
                             d=host.querySelector(".divKorisnikIzmeniDole");
                             d.innerHTML="";
-
-                            d=document.createElement("div");
-                            d.className="divLabelaIzmena";
-                            host.querySelector(".divKorisnikIzmeniDole").appendChild(d);
-                
-                            l=document.createElement("label");
-                            l.innerHTML="Uspesno ste se prijavili.";
-                            host.querySelector(".divLabelaIzmena").appendChild(l);
-
-                            l=document.createElement("label");
-                            l.innerHTML="Unesite nove podatke.";
-                            host.querySelector(".divLabelaIzmena").appendChild(l);
                             
                 
                 
@@ -3625,10 +3897,28 @@ export class Sajt{
         host.innerHTML="";
 
         host.classList.add("PrikazLevoDodajPadding");
+        host.classList.remove("PrikazLevoObrisiPadding");
 
 
         let l;
         let i;
+
+
+        let h = document.createElement("div");
+        h.className="h";
+        host.appendChild(h);
+
+        let x = document.createElement("img");
+        x.src="../Slike/x.ico";
+        x.className="x";
+        h.appendChild(x);
+
+
+        x.onclick=(ev)=>{
+            host.innerHTML="";
+            host.classList.add("PrikazLevoObrisiPadding");
+            host.classList.remove("PrikazLevoDodajPadding");
+        }
 
         l=document.createElement("label");
         l.innerHTML="Oglasi korisnika";
@@ -3705,10 +3995,31 @@ export class Sajt{
         host.innerHTML="";
 
         host.classList.add("PrikazLevoDodajPadding");
+        host.classList.remove("PrikazLevoObrisiPadding");
 
 
         let l;
         let i;
+
+
+
+        let h = document.createElement("div");
+        h.className="h";
+        host.appendChild(h);
+
+        let x = document.createElement("img");
+        x.src="../Slike/x.ico";
+        x.className="x";
+        h.appendChild(x);
+
+
+        x.onclick=(ev)=>{
+            host.innerHTML="";
+            host.classList.add("PrikazLevoObrisiPadding");
+            host.classList.remove("PrikazLevoDodajPadding");
+        }
+
+
 
         l=document.createElement("label");
         l.innerHTML="Obrisi korisnika";
@@ -3898,10 +4209,28 @@ export class Sajt{
         host.innerHTML="";
 
         host.classList.add("PrikazLevoDodajPadding");
+        host.classList.remove("PrikazLevoObrisiPadding");
 
 
         let l;
         let i;
+
+
+        let h = document.createElement("div");
+        h.className="h";
+        host.appendChild(h);
+
+        let x = document.createElement("img");
+        x.src="../Slike/x.ico";
+        x.className="x";
+        h.appendChild(x);
+
+
+        x.onclick=(ev)=>{
+            host.innerHTML="";
+            host.classList.add("PrikazLevoObrisiPadding");
+            host.classList.remove("PrikazLevoDodajPadding");
+        }
 
         l=document.createElement("label");
         l.innerHTML="Zaboravljena lozinka";
