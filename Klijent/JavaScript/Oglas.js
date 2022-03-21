@@ -35,6 +35,10 @@ export class Oglas{
 
 
     crtajOglas(host){
+
+        if(host.parentNode.querySelector(".levo")!=null){
+            host.parentNode.querySelector(".levo").style.display="none";
+        }
         
         
         host.innerHTML="";
@@ -138,8 +142,10 @@ export class Oglas{
         l.innerHTML=this.gorivoAutomobila;
         host.querySelector(".divNoviOglasGorivo").appendChild(l);
 
+        // let pomocna = document.createElement("div");
 
         host.querySelector(".divNoviOglas").onclick=()=>{
+            // pomocna = host.innerHTML;
 
             let novaPijaca = new Pijaca(this.nazivPijace, this.lokacijaPijace, this.adresaPijace, this.telefonPijace);
             novaPijaca.crtajPijacu(host);
@@ -156,6 +162,30 @@ export class Oglas{
             this.crtajMiniOglas(host.querySelector(".divNoviOglas"));
 
 
+            let h = host.parentNode.querySelector(".h");
+            let levo;
+            console.log(host.parentNode.querySelector(".levo"));
+            if (host.parentNode.querySelector(".levo")==null){
+                levo = document.createElement("img");
+                levo.src="../Slike/levo.png";
+                levo.className="levo";
+                h.appendChild(levo);
+            }
+            else{
+                levo=host.parentNode.querySelector(".levo");
+                levo.style.display="inline";
+            }
+
+
+            levo.onclick=(ev)=>{
+
+                // host.innerHTML=pomocna;
+                levo.style.display="none";
+                this.crtajOglas(host);
+
+            }
+
+
         }
 
 
@@ -168,6 +198,8 @@ export class Oglas{
         }
 
         let l;
+
+        let flag=0;
 
         let d = document.createElement("div");
         d.className="divNoviOglas"+index;
@@ -271,8 +303,15 @@ export class Oglas{
         l.innerHTML=this.gorivoAutomobila;
         host.querySelector(".divNoviOglasGorivo"+index).appendChild(l);
 
+        
+        let pomocna = document.createElement("div");
 
         host.querySelector(".divNoviOglas"+index).onclick=()=>{
+        // host.querySelector(".divNoviOglas"+index).addEventListener('click', function funkcija(){
+            pomocna = host.cloneNode(true);
+
+
+
             host.innerHTML="";
             // var divs = host.querySelectorAll("host > div:not(.divNoviOglas"+index+")");
             // console.log(divs);
@@ -297,11 +336,33 @@ export class Oglas{
             this.crtajMiniOglas(d, index);
 
 
+            // let h = host.parentNode.querySelector(".h");
+            // let levo = document.createElement("img");
+            // levo.src="../Slike/levo.png";
+            // levo.className="levo";
+            // h.appendChild(levo);
+
+            
+
+            // levo.onclick=(ev)=>{
+
+            //     let roditelj = host.parentNode;
+            //     roditelj.removeChild(host);
+            //     roditelj.appendChild(pomocna);
+
+            //     levo.style.display="none";
+
+            // }
+        
+
         }
+        // });
+
 
 
     }
 
+    funkcija(){}
     crtajMiniOglas(host, index){
 
         host.innerHTML="";

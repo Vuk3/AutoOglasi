@@ -11,10 +11,13 @@ export class Sajt{
 
     crtaj(host){
 
-        host.innerHTML="";
-        this.kontejner=document.createElement("div");
-        this.kontejner.className="GlavniKontejner";
-        host.appendChild(this.kontejner);
+        // host.innerHTML="";
+        if(host.className!="GlavniKontejner"){
+            this.kontejner=document.createElement("div");
+            this.kontejner.className="GlavniKontejner";
+            host.appendChild(this.kontejner);
+            
+        }
         this.kontejner.innerHTML="";
         
 
@@ -64,16 +67,44 @@ export class Sajt{
 
 
     crtajHeder(host){
+
         let d =document.createElement("div");
         d.className="divNaslov";
         host.appendChild(d);
 
 
+        let s = document.createElement("img");
+        s.className="slikaGoreLevo";
+        s.src="../Slike/ao.png";
+        host.appendChild(s);
+
+        s.onclick=(ev)=>{
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+
         let l = document.createElement("img");
         l.src="../Slike/autooglasi.png"
         l.className="glavniNaslov";
-        l.onclick=(ev)=>this.crtaj(document.body);
+        l.onclick=(ev)=>this.crtaj(this.kontejner);
         d.appendChild(l);
+
+
+        let d2 =document.createElement("div");
+        d2.className="divHederVreme";
+        host.appendChild(d2);
+
+
+        function time() {
+        var date = new Date();
+        var s = date.getSeconds();
+        var m = date.getMinutes();
+        var h = date.getHours();
+        d2.textContent = 
+            ("0" + h).substr(-2) + ":" + ("0" + m).substr(-2) + ":" + ("0" + s).substr(-2);
+        }
+
+        setInterval(time, 1000);
     }
 
     crtajFuter(host){
@@ -81,9 +112,13 @@ export class Sajt{
         d.className="divFuter";
         host.appendChild(d);
 
+
+
         let l = document.createElement("label");
         l.innerHTML="Copyright © Auto Oglasi";
         d.appendChild(l);
+
+
     }
 
     crtajDugmice(host){
@@ -350,6 +385,15 @@ export class Sajt{
 
     }
 
+    brisi(){
+        this.kontejner.querySelector(".PrikazLevo").innerHTML="";
+        this.kontejner.querySelector(".PrikazLevo").classList.add("PrikazLevoObrisiPadding");
+        this.kontejner.querySelector(".PrikazLevo").classList.remove("PrikazLevoDodajPadding");
+
+        this.kontejner.querySelector(".PrikazDesno").innerHTML="";
+    }
+
+
     dodajPijacu(host){
 
         
@@ -374,9 +418,7 @@ export class Sajt{
 
 
         x.onclick=(ev)=>{
-            host.innerHTML="";
-            host.classList.add("PrikazLevoObrisiPadding");
-            host.classList.remove("PrikazLevoDodajPadding");
+            this.brisi();
         }
 
 
@@ -688,9 +730,7 @@ export class Sajt{
 
 
         x.onclick=(ev)=>{
-            host.innerHTML="";
-            host.classList.add("PrikazLevoObrisiPadding");
-            host.classList.remove("PrikazLevoDodajPadding");
+            this.brisi();
         }
 
 
@@ -965,9 +1005,7 @@ export class Sajt{
 
 
         x.onclick=(ev)=>{
-            host.innerHTML="";
-            host.classList.add("PrikazLevoObrisiPadding");
-            host.classList.remove("PrikazLevoDodajPadding");
+            this.brisi();
         }
 
 
@@ -1057,9 +1095,7 @@ export class Sajt{
 
 
         x.onclick=(ev)=>{
-            host.innerHTML="";
-            host.classList.add("PrikazLevoObrisiPadding");
-            host.classList.remove("PrikazLevoDodajPadding");
+            this.brisi();
         }
 
 
@@ -1209,9 +1245,7 @@ export class Sajt{
 
 
         x.onclick=(ev)=>{
-            host.innerHTML="";
-            host.classList.add("PrikazLevoObrisiPadding");
-            host.classList.remove("PrikazLevoDodajPadding");
+            this.brisi();
         }
 
 
@@ -1423,7 +1457,7 @@ export class Sajt{
                                             }).then(s=>{
                                                 if(s.ok){
                                                     this.kontejner.querySelector(".PrikazDesno").innerHTML="";
-                                                    this.crtaj(document.body);
+                                                    this.crtaj(this.kontejner);
                                                     alert("Pijaca uspesno obrisana");
                                                 }
                                                 else{
@@ -1484,9 +1518,7 @@ export class Sajt{
 
 
         x.onclick=(ev)=>{
-            host.innerHTML="";
-            host.classList.add("PrikazLevoObrisiPadding");
-            host.classList.remove("PrikazLevoDodajPadding");
+            this.brisi();
         }
 
         l=document.createElement("label");
@@ -1785,9 +1817,7 @@ export class Sajt{
 
 
         x.onclick=(ev)=>{
-            host.innerHTML="";
-            host.classList.add("PrikazLevoObrisiPadding");
-            host.classList.remove("PrikazLevoDodajPadding");
+            this.brisi();
         }
 
 
@@ -1875,9 +1905,7 @@ export class Sajt{
 
 
         x.onclick=(ev)=>{
-            host.innerHTML="";
-            host.classList.add("PrikazLevoObrisiPadding");
-            host.classList.remove("PrikazLevoDodajPadding");
+            this.brisi();
         }
 
 
@@ -2029,9 +2057,37 @@ export class Sajt{
                             l.innerHTML="Naziv pijace";
                             host.querySelector(".divOglasDodajPijacu").appendChild(l);
                 
-                            i=document.createElement("input");
-                            i.className="inputOglasDodajPijaca";
+                            i=document.createElement("select");
+                            i.className="selectOglasDodajPijaca";
                             host.querySelector(".divOglasDodajPijacu").appendChild(i);
+
+                            let op;
+
+                            fetch("https://localhost:5001/Pijaca/PreuzmiPijace/",
+                            {
+                                method:"GET",
+                            }).then(s=>{
+                                if(s.ok){
+                                    s.json().then(data1=>{
+                                        if(data1.length==0){
+                                            alert("Ne postoji nijedna pijaca!");
+                                        }
+                                        else{
+                                            data1.forEach((data,index)=>{
+                                                op=document.createElement("option");
+                                                op.innerHTML=data.naziv;
+                                                host.querySelector(".selectOglasDodajPijaca").appendChild(op);    
+                                                // i.appendChild(op);
+                                            })
+                                        }
+                                    })
+                                }
+                                else{
+                                    s.text().then(data=>{
+                                        alert(data);
+                                    })
+                                }
+                            })
                 
                 
                 
@@ -2061,15 +2117,17 @@ export class Sajt{
                                 if(brojSasije1===null || brojSasije1===undefined || brojSasije1===""){
                                     validacija+="Nevalidan broj sasije\n";
                                 }
-                                let pijaca1 = host.querySelector(".inputOglasDodajPijaca").value;
-                                if(pijaca1===null || pijaca1===undefined || pijaca1===""){
-                                    validacija+="Nevalidan naziv pijace\n";
+
+                                let pijacaSelect1 = host.querySelector(".selectOglasDodajPijaca");
+                                let pijacaOpcija1 = pijacaSelect1.options[pijacaSelect1.selectedIndex].text;
+                                if(pijacaOpcija1===null || pijacaOpcija1===undefined || pijacaOpcija1===""){
+                                    validacija+="Nevalidna pijaca\n";
                                 }
                                 if(validacija!=""){
                                     alert(validacija);
                                 }
                                 else{
-                                    fetch("https://localhost:5001/Oglas/DodajOglas/"+username2+"/"+brojSasije1+"/"+pijaca1+"/"+cena1,
+                                    fetch("https://localhost:5001/Oglas/DodajOglas/"+username2+"/"+brojSasije1+"/"+pijacaOpcija1+"/"+cena1,
                                     {
                                         method:"POST"
                                     }).then(s=>{
@@ -2128,9 +2186,7 @@ export class Sajt{
 
 
         x.onclick=(ev)=>{
-            host.innerHTML="";
-            host.classList.add("PrikazLevoObrisiPadding");
-            host.classList.remove("PrikazLevoDodajPadding");
+            this.brisi();
         }
 
 
@@ -2193,6 +2249,7 @@ export class Sajt{
         btn = document.createElement("button");
         btn.innerHTML="Prijavi se";
         btn.className="btnNadji";
+        btn.classList.add("btnIzmeniOglasBlock");
         host.querySelector(".divOglasIzmeniDugmePrijaviSe").appendChild(btn);
 
         l=document.createElement("div");
@@ -2227,6 +2284,10 @@ export class Sajt{
                         host.querySelector(".inputOglasIzmeniSifra").style.cursor="not-allowed";
 
 
+                        host.querySelector(".btnIzmeniOglasBlock").disabled=true;
+                        host.querySelector(".btnIzmeniOglasBlock").style.cursor="not-allowed";
+
+
                         l=document.createElement("div");
                         l.className="divOglasIzmeniSifraOglasa";
                         host.querySelector(".divOglasIzmeniDole1").appendChild(l);
@@ -2250,6 +2311,7 @@ export class Sajt{
                         let btn1 = document.createElement("button");
                         btn1.innerHTML="Nadji";
                         btn1.className="btnNadji";
+                        btn1.classList.add("btnIzmeniOglasBlock2");
                         host.querySelector(".divOglasIzmeniDugme").appendChild(btn1);
 
                         let d = document.createElement("div");
@@ -2271,74 +2333,85 @@ export class Sajt{
                             }).then(s=>{
                                 if(s.ok){
                                     s.json().then(data=>{
-                                        const noviOglas = new Oglas(data.usernamekorisnika, data.adresaKorisnika, data.brojSasijeAutomobila, data.cena, data.datum, data.emailKorisnika, data.godisteAutomobila, data.gorivoAutomobila, data.gradKorisnika, data.imeKorisnika, data.jmbGkorisnika, data.karoserijaAutomobila, data.kilometrazaAutomobila, data.kubikazaAutomobila, data.lokacijaPijace, data.markaAutomobila, data.modelAutomobila, data.nazivPijace, data.prezimeKorisnika, data.sifraOglasa, data.snagaMotoraAutomobila, data.telefonKorisnika, data.telefonPijace, data.slikaKorisnika, data.adresaPijace);
-                                        noviOglas.crtajOglas(this.kontejner.querySelector(".PrikazDesno"));
-                                        
-                                        
-                                        
-                                        d=host.querySelector(".divOglasIzmeniDole");
-                                        d.innerHTML="";
-                        
-                        
-                        
-                        
-                                        d=document.createElement("div");
-                                        d.className="divOglasIzmeniCena";
-                                        host.querySelector(".divOglasIzmeniDole").appendChild(d);
-                                
-                        
-                        
-                                        l=document.createElement("label");
-                                        l.innerHTML="Nova cena";
-                                        host.querySelector(".divOglasIzmeniDole").appendChild(l);
-                        
-                        
-                                        i=document.createElement("input");
-                                        i.type="number";
-                                        i.className="inputOglasIzmeniCena";
-                                        host.querySelector(".divOglasIzmeniDole").appendChild(i);
-                        
-                                        
-                                        d=document.createElement("div");
-                                        d.className="divOglasIzmeniDugmeDole";
-                                        host.querySelector(".divOglasIzmeniDole").appendChild(d);
-                        
-                                        let btn2 = document.createElement("button");
-                                        btn2.innerHTML="Izmeni oglas";
-                                        btn2.className="btnIzmeni";
-                                        host.querySelector(".divOglasIzmeniDole").appendChild(btn2);
+
+                                        if(username1==data.usernamekorisnika){
+                                            const noviOglas = new Oglas(data.usernamekorisnika, data.adresaKorisnika, data.brojSasijeAutomobila, data.cena, data.datum, data.emailKorisnika, data.godisteAutomobila, data.gorivoAutomobila, data.gradKorisnika, data.imeKorisnika, data.jmbGkorisnika, data.karoserijaAutomobila, data.kilometrazaAutomobila, data.kubikazaAutomobila, data.lokacijaPijace, data.markaAutomobila, data.modelAutomobila, data.nazivPijace, data.prezimeKorisnika, data.sifraOglasa, data.snagaMotoraAutomobila, data.telefonKorisnika, data.telefonPijace, data.slikaKorisnika, data.adresaPijace);
+                                            noviOglas.crtajOglas(this.kontejner.querySelector(".PrikazDesno"));
+                                            
+                                            
+                                            
+                                            d=host.querySelector(".divOglasIzmeniDole");
+                                            d.innerHTML="";
+                            
+                                            host.querySelector(".inputOglasIzmeniSifraOglasa").disabled=true;
+                                            host.querySelector(".inputOglasIzmeniSifraOglasa").style.cursor="not-allowed";
+
+                                            host.querySelector(".btnIzmeniOglasBlock2").disabled=true;
+                                            host.querySelector(".btnIzmeniOglasBlock2").style.cursor="not-allowed";
+                            
+                            
+                                            d=document.createElement("div");
+                                            d.className="divOglasIzmeniCena";
+                                            host.querySelector(".divOglasIzmeniDole").appendChild(d);
+                                    
+                            
+                            
+                                            l=document.createElement("label");
+                                            l.innerHTML="Nova cena";
+                                            host.querySelector(".divOglasIzmeniDole").appendChild(l);
+                            
+                            
+                                            i=document.createElement("input");
+                                            i.type="number";
+                                            i.className="inputOglasIzmeniCena";
+                                            host.querySelector(".divOglasIzmeniDole").appendChild(i);
+                            
+                                            
+                                            d=document.createElement("div");
+                                            d.className="divOglasIzmeniDugmeDole";
+                                            host.querySelector(".divOglasIzmeniDole").appendChild(d);
+                            
+                                            let btn2 = document.createElement("button");
+                                            btn2.innerHTML="Izmeni oglas";
+                                            btn2.className="btnIzmeni";
+                                            host.querySelector(".divOglasIzmeniDole").appendChild(btn2);
 
 
-                                        btn2.onclick=(ev)=>{
-                                            let novaCena1=host.querySelector(".inputOglasIzmeniCena").value;
-                                            if(novaCena1===null || novaCena1===undefined || novaCena1==="" || novaCena1<0){
-                                                alert("Nevalidna cena");
-                                            }
-                                            fetch("https://localhost:5001/Oglas/IzmeniOglas/"+username1+"/"+sifraOglasa1+"/"+novaCena1,
-                                            {
-                                                method:"PUT",
-                                            }).then(s=>{
-                                                if(s.ok){
-                                                    s.json().then(data=>{
-                                                        const noviOglas = new Oglas(data.usernamekorisnika, data.adresaKorisnika, data.brojSasijeAutomobila, data.cena, data.datum, data.emailKorisnika, data.godisteAutomobila, data.gorivoAutomobila, data.gradKorisnika, data.imeKorisnika, data.jmbGkorisnika, data.karoserijaAutomobila, data.kilometrazaAutomobila, data.kubikazaAutomobila, data.lokacijaPijace, data.markaAutomobila, data.modelAutomobila, data.nazivPijace, data.prezimeKorisnika, data.sifraOglasa, data.snagaMotoraAutomobila, data.telefonKorisnika, data.telefonPijace, data.slikaKorisnika, data.adresaPijace);
-                                                        let w = this.kontejner.querySelector(".PrikazDesno");
-                                                        w.innerHTML="";
-                                                        noviOglas.crtajOglas(this.kontejner.querySelector(".PrikazDesno"));
-                                                    })
-
+                                            btn2.onclick=(ev)=>{
+                                                let novaCena1=host.querySelector(".inputOglasIzmeniCena").value;
+                                                if(novaCena1===null || novaCena1===undefined || novaCena1==="" || novaCena1<0){
+                                                    alert("Nevalidna cena");
                                                 }
                                                 else{
-                                                    s.text().then(data=>{
-                                                        host.querySelector(".divOglasIzmeniDole1").innerHTML="";
-                                                        this.kontejner.querySelector(".PrikazDesno").innerHTML="";
-                                                        alert(data);
-                
-                
+                                                    fetch("https://localhost:5001/Oglas/IzmeniOglas/"+username1+"/"+sifraOglasa1+"/"+novaCena1,
+                                                    {
+                                                        method:"PUT",
+                                                    }).then(s=>{
+                                                        if(s.ok){
+                                                            s.json().then(data=>{
+                                                                const noviOglas = new Oglas(data.usernamekorisnika, data.adresaKorisnika, data.brojSasijeAutomobila, data.cena, data.datum, data.emailKorisnika, data.godisteAutomobila, data.gorivoAutomobila, data.gradKorisnika, data.imeKorisnika, data.jmbGkorisnika, data.karoserijaAutomobila, data.kilometrazaAutomobila, data.kubikazaAutomobila, data.lokacijaPijace, data.markaAutomobila, data.modelAutomobila, data.nazivPijace, data.prezimeKorisnika, data.sifraOglasa, data.snagaMotoraAutomobila, data.telefonKorisnika, data.telefonPijace, data.slikaKorisnika, data.adresaPijace);
+                                                                let w = this.kontejner.querySelector(".PrikazDesno");
+                                                                w.innerHTML="";
+                                                                noviOglas.crtajOglas(this.kontejner.querySelector(".PrikazDesno"));
+                                                            })
+
+                                                        }
+                                                        else{
+                                                            s.text().then(data=>{
+                                                                host.querySelector(".divOglasIzmeniDole1").innerHTML="";
+                                                                this.kontejner.querySelector(".PrikazDesno").innerHTML="";
+                                                                alert(data);
+                        
+                        
+                                                            })
+                                                        }
                                                     })
                                                 }
-                                            })
+                                            }
                                         }
-
+                                        else{
+                                            alert("Korisnik nije vlasnik datog oglasa");
+                                        }
                                     })
                                 }
                                 else{
@@ -2380,6 +2453,7 @@ export class Sajt{
         
     }
 
+
     obrisiOglas(host){
 
         host.innerHTML="";
@@ -2403,9 +2477,7 @@ export class Sajt{
 
 
         x.onclick=(ev)=>{
-            host.innerHTML="";
-            host.classList.add("PrikazLevoObrisiPadding");
-            host.classList.remove("PrikazLevoDodajPadding");
+            this.brisi();
         }
 
 
@@ -2473,15 +2545,21 @@ export class Sajt{
 
         btn.onclick=(ev)=>{
 
+            let validacija="";
+
             let username1=host.querySelector(".inputOglasObrisiJMBG").value;
             let sifra1=host.querySelector(".inputOglasObrisiSifra").value;
 
             if(username1===null || username1===undefined || username1===""){
-                alert("Neispravno korisnicko ime");
+                validacija+="Neispravno korisnicko ime\n";
             }
 
-            else if(sifra1===null || sifra1===undefined || sifra1===""){
-                alert("Neispravna sifra");
+            if(sifra1===null || sifra1===undefined || sifra1===""){
+                validacija+="Neispravna sifra\n";
+            }
+
+            if(validacija!=""){
+                alert(validacija);
             }
 
             else{
@@ -2604,7 +2682,7 @@ export class Sajt{
                                                 }).then(s=>{
                                                     if(s.ok){
                                                         this.kontejner.querySelector(".PrikazDesno").innerHTML="";
-                                                        this.crtaj(document.body);
+                                                        this.crtaj(this.kontejner);
                                                         alert("Oglas uspesno obrisan");
                                                     }
                                                     else{
@@ -2668,9 +2746,7 @@ export class Sajt{
 
 
         x.onclick=(ev)=>{
-            host.innerHTML="";
-            host.classList.add("PrikazLevoObrisiPadding");
-            host.classList.remove("PrikazLevoDodajPadding");
+            this.brisi();
         }
 
         l=document.createElement("label");
@@ -2770,7 +2846,7 @@ export class Sajt{
         
 
         let nizLabela=["Broj šasije", "Marka", "Model", "Godiste", "Kilometraza", "Karoserija", "Gorivo", "Kubikaza", "Snaga", "Korisnicko ime", "Pijaca"];
-        let nizInputa=["text", "text", "text", "number", "number", "select", "select", "number", "number", "text", "text"];
+        let nizInputa=["text", "text", "text", "number", "number", "select", "select", "number", "number", "text", "select"];
         let nizKaroserija = ["Limuzina", "Hecbek", "Karavan", "Kupe", "Kabriolet", "Dzip", "Pickup"];
         let nizGoriva=["Dizel", "Benzin", "Benzin+plin", "ElektricniPogon", "HibridniPogon"];
 
@@ -2873,11 +2949,38 @@ export class Sajt{
             }
 
             else if(index==10){
-                i=document.createElement("input");
-                i.type=nizInputa[index];
-                i.className="inputAutomobilDodajPijaca";
+                i=document.createElement("select");
+                i.className="selectAutomobilDodajPijaca";
                 host.querySelector(".divAutomobilDodajPijaca").appendChild(l);
                 host.querySelector(".divAutomobilDodajPijaca").appendChild(i);
+
+                fetch("https://localhost:5001/Pijaca/PreuzmiPijace/",
+                {
+                    method:"GET",
+                }).then(s=>{
+                    if(s.ok){
+                        s.json().then(data1=>{
+                            if(data1.length==0){
+                                alert("Ne postoji nijedna pijaca!");
+                            }
+                            else{
+                                data1.forEach((data,index)=>{
+                                    op=document.createElement("option");
+                                    console.log(data.naziv);
+                                    op.innerHTML=data.naziv;
+                                    console.log(i);
+                                    host.querySelector(".selectAutomobilDodajPijaca").appendChild(op);    
+                                    // i.appendChild(op);
+                                })
+                            }
+                        })
+                    }
+                    else{
+                        s.text().then(data=>{
+                            alert(data);
+                        })
+                    }
+                })
             }
 
 
@@ -2936,16 +3039,19 @@ export class Sajt{
             if(korisnickoImeVlasnika1===null || korisnickoImeVlasnika1===undefined || korisnickoImeVlasnika1===""){
                 validacija+="Nevalidno korisnicko ime vlasnika\n";
             }
-            let pijaca1 = host.querySelector(".inputAutomobilDodajPijaca").value;
-            if(pijaca1===null || pijaca1===undefined || pijaca1===""){
-                validacija+="Nevalidan naziv pijace\n";
+
+
+            let pijacaSelect1 = host.querySelector(".selectAutomobilDodajPijaca");
+            let pijacaOpcija1 = pijacaSelect1.options[pijacaSelect1.selectedIndex].text;
+            if(pijacaOpcija1===null || pijacaOpcija1===undefined || pijacaOpcija1===""){
+                validacija+="Nevalidna pijaca\n";
             }
 
             if(validacija!=""){
                 alert(validacija);
             }
             else{
-                fetch("https://localhost:5001/Automobil/DodajAutomobilNaPlac/"+brojSasije1+"/"+marka1+"/"+model1+"/"+godiste1+"/"+kilometraza1+"/"+karoserijaOpcija1+"/"+gorivoOpcija1+"/"+kubikaza1+"/"+snaga1+"/"+korisnickoImeVlasnika1+"/"+pijaca1,
+                fetch("https://localhost:5001/Automobil/DodajAutomobilNaPlac/"+brojSasije1+"/"+marka1+"/"+model1+"/"+godiste1+"/"+kilometraza1+"/"+karoserijaOpcija1+"/"+gorivoOpcija1+"/"+kubikaza1+"/"+snaga1+"/"+korisnickoImeVlasnika1+"/"+pijacaOpcija1,
                 {
                     method:"POST"
                 }).then(s=>{
@@ -2995,9 +3101,7 @@ export class Sajt{
 
 
         x.onclick=(ev)=>{
-            host.innerHTML="";
-            host.classList.add("PrikazLevoObrisiPadding");
-            host.classList.remove("PrikazLevoDodajPadding");
+            this.brisi();
         }
 
 
@@ -3203,28 +3307,32 @@ export class Sajt{
                 
                                         btn2.onclick=(ev)=>{
                                             let kilometraza1 = host.querySelector(".KilometrazaAutomobilIzmeni").value;
-                                            if(kilometraza1<0 || kilometraza1>1000000){
+                                            
+                                            if(kilometraza1<0 || kilometraza1>1000000 ||  kilometraza1===null || kilometraza1===undefined || kilometraza1==="")
+                                            {
                                                 alert("Neispravna kilometraza");
                                             }
+                                            else{
                 
-                                            fetch("https://localhost:5001/Automobil/IzmeniAutomobil/"+brojSasije1+"/"+kilometraza1,
-                                            {
-                                                method:"PUT"
-                                            }).then(s=>{
-                                                if(s.ok){
-                                                    s.json().then(data=>{
-                                                        let noviAutomobil = new Automobil(data.brojSasije, data.marka, data.model, data.godiste, data.kilometraza, data.karoserija, data.gorivo, data.kubikaza, data.snagaMotora, data.usernamevlasnika, data.pijaca);
-                                                        let w = this.kontejner.querySelector(".PrikazDesno");
-                                                        w.innerHTML="";  
-                                                        noviAutomobil.crtajAutomobil(this.kontejner.querySelector(".PrikazDesno"));
-                                                    })
-                                                }
-                                                else{
-                                                    s.text().then(data=>{
-                                                        alert(data);
-                                                    })
-                                                }
-                                            })
+                                                fetch("https://localhost:5001/Automobil/IzmeniAutomobil/"+brojSasije1+"/"+kilometraza1,
+                                                {
+                                                    method:"PUT"
+                                                }).then(s=>{
+                                                    if(s.ok){
+                                                        s.json().then(data=>{
+                                                            let noviAutomobil = new Automobil(data.brojSasije, data.marka, data.model, data.godiste, data.kilometraza, data.karoserija, data.gorivo, data.kubikaza, data.snagaMotora, data.usernamevlasnika, data.pijaca);
+                                                            let w = this.kontejner.querySelector(".PrikazDesno");
+                                                            w.innerHTML="";  
+                                                            noviAutomobil.crtajAutomobil(this.kontejner.querySelector(".PrikazDesno"));
+                                                        })
+                                                    }
+                                                    else{
+                                                        s.text().then(data=>{
+                                                            alert(data);
+                                                        })
+                                                    }
+                                                })
+                                            }
                                         }
                                     }
                                     else{
@@ -3284,9 +3392,7 @@ export class Sajt{
 
 
         x.onclick=(ev)=>{
-            host.innerHTML="";
-            host.classList.add("PrikazLevoObrisiPadding");
-            host.classList.remove("PrikazLevoDodajPadding");
+            this.brisi();
         }
 
         let izabranaSlika;
@@ -3464,14 +3570,14 @@ export class Sajt{
 
                         if(flag==1){
                             this.kontejner.querySelector(".PrikazDesno").innerHTML="";
-                            flag++;
+                            flag=(flag+1)%2;
                         }
                         else{
                             flag=(flag+1)%2;
                             let forma = this.kontejner.querySelector(".PrikazDesno");
                             forma.innerHTML="";
                             let d;
-                            for(let i=1;i<=50;i++){
+                            for(let i=1;i<=60;i++){
                                 d=document.createElement("img");
                                 d.src="../Avatari/"+i+".png";
                                 d.className="izaberiSliku";
@@ -3645,9 +3751,7 @@ export class Sajt{
 
 
         x.onclick=(ev)=>{
-            host.innerHTML="";
-            host.classList.add("PrikazLevoObrisiPadding");
-            host.classList.remove("PrikazLevoDodajPadding");
+            this.brisi();
         }
 
         l=document.createElement("label");
@@ -3874,6 +3978,11 @@ export class Sajt{
                                             noviKorisnik.crtajKorisnika(this.kontejner.querySelector(".PrikazDesno"));                                         
                                         })
                                     }
+                                    else{
+                                        s.text().then(data=>{
+                                            alert(data)
+                                        })
+                                    }
                                 })
 
                             }
@@ -3915,9 +4024,7 @@ export class Sajt{
 
 
         x.onclick=(ev)=>{
-            host.innerHTML="";
-            host.classList.add("PrikazLevoObrisiPadding");
-            host.classList.remove("PrikazLevoDodajPadding");
+            this.brisi();
         }
 
         l=document.createElement("label");
@@ -4014,9 +4121,7 @@ export class Sajt{
 
 
         x.onclick=(ev)=>{
-            host.innerHTML="";
-            host.classList.add("PrikazLevoObrisiPadding");
-            host.classList.remove("PrikazLevoDodajPadding");
+            this.brisi();
         }
 
 
@@ -4093,11 +4198,11 @@ export class Sajt{
             let sifra1=host.querySelector(".SifraKorisnikObrisi").value;
 
             if(username1===null || username1===undefined || username1===""){
-                validacija+="Nevalidan JMBG\n"
+                validacija+="Nevalidno korisnicko ime\n"
             }
 
             if(sifra1===null || sifra1===undefined || sifra1===""){
-                validacija+="Nevalidna sifra\n"
+                validacija+="Nevalidna lozinka\n"
             }
 
             if(validacija!=""){
@@ -4172,7 +4277,7 @@ export class Sajt{
                                 }).then(s=>{
                                     if(s.ok){
                                         this.kontejner.querySelector(".PrikazDesno").innerHTML="";
-                                        this.crtaj(document.body);
+                                        this.crtaj(this.kontejner);
                                         alert("Korisnik uspesno obrisan");
                                     }
                                     else{
@@ -4227,9 +4332,7 @@ export class Sajt{
 
 
         x.onclick=(ev)=>{
-            host.innerHTML="";
-            host.classList.add("PrikazLevoObrisiPadding");
-            host.classList.remove("PrikazLevoDodajPadding");
+            this.brisi();
         }
 
         l=document.createElement("label");
@@ -4383,7 +4486,7 @@ export class Sajt{
         host.appendChild(l);
 
         let btn = document.createElement("button");
-        btn.innerHTML="Nadji korisnika";
+        btn.innerHTML="Vrati sifru";
         btn.className="btnNadji";
         host.querySelector(".divKorisnikZaboravljenaSifraDugme").appendChild(btn);
 
@@ -4435,7 +4538,7 @@ export class Sajt{
                     if(s.ok){
                         s.json().then(data=>{
                             alert("Sifra datog korisnika je: " + data.sifra);
-                            this.crtaj(document.body);
+                            this.crtaj(this.kontejner);
                         })
                     }
                     else{

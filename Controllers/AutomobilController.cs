@@ -90,8 +90,45 @@ namespace Web_Projekat_18036.Controllers
                 return BadRequest("Nevalidan broj sasije");
             }
 
-            if(string.IsNullOrWhiteSpace(AutoMarka)){
-                return BadRequest("Nevalidna marka");
+            if(string.IsNullOrWhiteSpace(AutoMarka) || 
+                ((AutoMarka.ToLower()!="opel") && (AutoMarka.ToLower()!="volkswagen")
+                && (AutoMarka.ToLower()!="renault") && (AutoMarka.ToLower()!="fiat") 
+                && (AutoMarka.ToLower()!="alfa romeo") && (AutoMarka.ToLower()!="audi") 
+                && (AutoMarka.ToLower()!="bmw")
+                && (AutoMarka.ToLower()!="chery")
+                && (AutoMarka.ToLower()!="chevrolet")
+                && (AutoMarka.ToLower()!="chrysler")
+                && (AutoMarka.ToLower()!="citroen")
+                && (AutoMarka.ToLower()!="dacia")
+                && (AutoMarka.ToLower()!="daewoo")
+                && (AutoMarka.ToLower()!="dodge")
+                && (AutoMarka.ToLower()!="ford")
+                && (AutoMarka.ToLower()!="honda")
+                && (AutoMarka.ToLower()!="hyundai")
+                && (AutoMarka.ToLower()!="jaguar")
+                && (AutoMarka.ToLower()!="jeep")
+                && (AutoMarka.ToLower()!="kia")
+                && (AutoMarka.ToLower()!="lada")
+                && (AutoMarka.ToLower()!="land rover")
+                && (AutoMarka.ToLower()!="mini")
+                && (AutoMarka.ToLower()!="maserati")
+                && (AutoMarka.ToLower()!="mazda")
+                && (AutoMarka.ToLower()!="mercedes")
+                && (AutoMarka.ToLower()!="mitsubishi")
+                && (AutoMarka.ToLower()!="nissan")
+                && (AutoMarka.ToLower()!="peugeot")
+                && (AutoMarka.ToLower()!="porsche")
+                && (AutoMarka.ToLower()!="seat")
+                && (AutoMarka.ToLower()!="smart")
+                && (AutoMarka.ToLower()!="suzuki")
+                && (AutoMarka.ToLower()!="toyota")
+                && (AutoMarka.ToLower()!="volvo")
+                && (AutoMarka.ToLower()!="yugo")
+                && (AutoMarka.ToLower()!="zastava")
+                && (AutoMarka.ToLower()!="skoda")
+                
+                )){
+                return BadRequest("Nevalidna marka automobila");
             }
 
             if(string.IsNullOrWhiteSpace(AutoModel)){

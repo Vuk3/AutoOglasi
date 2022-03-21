@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -70,6 +71,26 @@ namespace Web_Projekat_18036.Controllers
         }
 
 
+        [Route("PreuzmiPijacee")]
+        [HttpGet]
+
+        public async Task<ActionResult> PreuzmiPijacee(){
+            try{
+                return Ok(await Context.Pijace.Select(p=>
+                new
+                {
+                    // Pijaca = new{
+                    
+                    p.naziv
+                    // }
+                }).ToListAsync());
+            }
+            catch (Exception e){
+                return BadRequest(e.Message);
+            }
+        }
+
+
         [Route("DodajPijacu/{nazivPijace}/{lokacijaPijace}/{adresaPijace}/{telefonPijace}")]
         [HttpPost]
 
@@ -88,6 +109,11 @@ namespace Web_Projekat_18036.Controllers
 
             if(string.IsNullOrWhiteSpace(telefonPijace)){
                 return BadRequest("Nevalidan telefon");
+            }
+
+            Regex regex = new Regex(@"^\d+$");
+            if(!regex.IsMatch(telefonPijace)){
+                return BadRequest("Telefon sadrzi samo cifre!");
             }
 
             try{
@@ -136,13 +162,31 @@ namespace Web_Projekat_18036.Controllers
                 return BadRequest("Nevalidan telefon");
             }
 
+            Regex regex = new Regex(@"^\d+$");
+            if(!regex.IsMatch(telefonPijace)){
+                return BadRequest("Telefon sadrzi samo cifre!");
+            }
+
+            
+
             try{
                 var pijaca = await Context.Pijace.Where(p=> p.naziv==nazivPijace).FirstOrDefaultAsync();
                 if (pijaca==null){
                     return BadRequest("Pijaca ne postoji");
                 }
 
+                
+
                 if(telefonPijace!="-"){
+                    var probniTelefon = await Context.Pijace.Where(p=>p.telefon==telefonPijace).FirstOrDefaultAsync();
+                    if(probniTelefon!=null){
+                        if(probniTelefon.naziv==nazivPijace){
+                            return BadRequest("Ovo je vas trenutni telefon");
+                        }
+                        else{
+                            return BadRequest("Vec postoji pijaca sa tim telefonom");
+                        }
+                    } 
                     pijaca.telefon=telefonPijace;
                 }
 

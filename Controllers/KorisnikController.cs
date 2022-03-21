@@ -178,6 +178,10 @@ namespace Web_Projekat_18036.Controllers
                     return BadRequest("Nevalidan telefon");
                 }
 
+                if(!regex.IsMatch(telefonKorisnika)){
+                    return BadRequest("Telefon sadrzi samo cifre!");
+                }
+
                 if(string.IsNullOrWhiteSpace(emailKorisnika)){
                     return BadRequest("Nevalidan email");
                 }
@@ -196,7 +200,7 @@ namespace Web_Projekat_18036.Controllers
 
                 probniKorisnik = await Context.Korisnici.Where(p=>p.JMBG==JMBGKorisnika).FirstOrDefaultAsync();
                 if (probniKorisnik!=null){
-                    return BadRequest("Postoji korisnik sa JMBG-om" + JMBGKorisnika);
+                    return BadRequest("Vec imate nalog!");
                 }
 
                 Korisnik korisnik = new Korisnik{
@@ -400,11 +404,41 @@ namespace Web_Projekat_18036.Controllers
                 }
 
                 if(noviTelefon!="-"){
-                    probniKorisnik.telefon=noviTelefon;
+                    Regex regex = new Regex(@"^\d+$");
+                    if(!regex.IsMatch(noviTelefon)){
+                        return BadRequest("Telefon sadrzi samo cifre!");
+                    }
+                    var probniTelefon = await Context.Korisnici.Where(p=>p.telefon==noviTelefon).FirstOrDefaultAsync();
+                    if(probniTelefon!=null){
+                        if(probniTelefon.username==usernameKorisnika){
+                            return BadRequest("Ovo je vas trenutni telefon");
+                        }
+                        else{
+                            return BadRequest("Vec postoji korisnik sa tim telefonom");
+                        }
+                    }
+                    else{
+
+                        probniKorisnik.telefon=noviTelefon;
+                    }
                 }
 
                 if(noviEmail!="-"){
-                    probniKorisnik.email=noviEmail;
+                    var probniEmail = await Context.Korisnici.Where(p=>p.email==noviEmail).FirstOrDefaultAsync();
+                    //   return BadRequest(BadRequest(probniEmail.username));
+                    
+                    if(probniEmail!=null){
+                        if(probniEmail.username==usernameKorisnika){
+                            return BadRequest("Ovo je vas trenutni email");
+                        }
+                        else{
+                            return BadRequest("Vec postoji korisnik sa tim email-om");
+                        }
+                    }
+                    else{
+
+                        probniKorisnik.email=noviEmail;
+                    }
                 }
 
 
@@ -484,6 +518,12 @@ namespace Web_Projekat_18036.Controllers
                 if(JMBGKorisnika.Length!=13){
                     return BadRequest("Nevalidan JMBG");
                 }
+                
+                Regex regex = new Regex(@"^\d+$");
+                if(!regex.IsMatch(JMBGKorisnika)){
+                    return BadRequest("JMBG sadrzi samo cifre!");
+                }
+
                 if(string.IsNullOrWhiteSpace(usernameKorisnika)){
                     return BadRequest("Nevalidno korisnicko ime");
                 }
@@ -502,6 +542,11 @@ namespace Web_Projekat_18036.Controllers
                 if(string.IsNullOrWhiteSpace(telefonKorisnika)){
                     return BadRequest("Nevalidan telefon");
                 }
+
+                if(!regex.IsMatch(telefonKorisnika)){
+                    return BadRequest("Telefon sadrzi samo cifre!");
+                }
+
                 if(string.IsNullOrWhiteSpace(emailKorisnika)){
                     return BadRequest("Nevalidan email");
                 }
