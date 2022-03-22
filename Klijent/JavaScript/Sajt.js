@@ -845,10 +845,38 @@ export class Sajt{
                         l.innerHTML="Naziv";
                         host.querySelector(".divPijacaIzmeniNaziv").appendChild(l);
                 
-                        
-                        i=document.createElement("input");
-                        i.className="inputPijacaIzmeniNaziv";
+                        i=document.createElement("select");
+                        i.className="selectIzmeniPijacu";
                         host.querySelector(".divPijacaIzmeniNaziv").appendChild(i);
+
+                        
+                        let op;
+
+                        fetch("https://localhost:5001/Pijaca/PreuzmiPijace/",
+                        {
+                            method:"GET",
+                        }).then(s=>{
+                            if(s.ok){
+                                s.json().then(data1=>{
+                                    if(data1.length==0){
+                                        alert("Ne postoji nijedna pijaca!");
+                                    }
+                                    else{
+                                        data1.forEach((data,index)=>{
+                                            op=document.createElement("option");
+                                            op.innerHTML=data.naziv;
+                                            host.querySelector(".selectIzmeniPijacu").appendChild(op);    
+                                            // i.appendChild(op);
+                                        })
+                                    }
+                                })
+                            }
+                            else{
+                                s.text().then(data=>{
+                                    alert(data);
+                                })
+                            }
+                        })
                 
                 
                 
@@ -873,13 +901,13 @@ export class Sajt{
 
 
                         btn1.onclick=(ev)=>{
-                            let naziv1=host.querySelector(".inputPijacaIzmeniNaziv").value;
-                
-                            if(naziv1===null || naziv1===undefined || naziv1===""){
-                                alert("Neispravan naziv");
+                            let pijacaSelect1 = host.querySelector(".selectIzmeniPijacu");
+                            let pijacaOpcija1 = pijacaSelect1.options[pijacaSelect1.selectedIndex].text;
+                            if(pijacaOpcija1===null || pijacaOpcija1===undefined || pijacaOpcija1===""){
+                                validacija+="Nevalidna pijaca\n";
                             }
                             else{
-                                fetch("https://localhost:5001/Pijaca/PreuzmiPijacu/"+naziv1,
+                                fetch("https://localhost:5001/Pijaca/PreuzmiPijacu/"+pijacaOpcija1,
                                 {
                                     method:"GET"
                                 }).then(s=>{
@@ -889,8 +917,8 @@ export class Sajt{
                                             novaPijaca.crtajPijacu(this.kontejner.querySelector(".PrikazDesno"))
 
 
-                                            host.querySelector(".inputPijacaIzmeniNaziv").disabled=true;
-                                            host.querySelector(".inputPijacaIzmeniNaziv").style.cursor="not-allowed";
+                                            host.querySelector(".selectIzmeniPijacu").disabled=true;
+                                            host.querySelector(".selectIzmeniPijacu").style.cursor="not-allowed";
 
                                             host.querySelector(".izmeniPijacuu").disabled=true;
                                             host.querySelector(".izmeniPijacuu").style.cursor="not-allowed";
@@ -936,7 +964,7 @@ export class Sajt{
                                                 }
                                                 
                                                 else{
-                                                    fetch("https://localhost:5001/Pijaca/IzmeniPijacu/"+naziv1+"/"+telefon1,
+                                                    fetch("https://localhost:5001/Pijaca/IzmeniPijacu/"+pijacaOpcija1+"/"+telefon1,
                                                     {
                                                         method:"PUT"
                                                     }).then(s=>{
@@ -1025,9 +1053,37 @@ export class Sajt{
         l.innerHTML="Naziv";
         host.querySelector(".divPijacaNadjiNaziv").appendChild(l);
 
-        i=document.createElement("input");
-        i.className="inputNadjiPijacuNaziv"
+        i=document.createElement("select");
+        i.className="selectNadjiPijacuNaziv"
         host.querySelector(".divPijacaNadjiNaziv").appendChild(i);
+
+        let op;
+
+        fetch("https://localhost:5001/Pijaca/PreuzmiPijace/",
+        {
+            method:"GET",
+        }).then(s=>{
+            if(s.ok){
+                s.json().then(data1=>{
+                    if(data1.length==0){
+                        alert("Ne postoji nijedna pijaca!");
+                    }
+                    else{
+                        data1.forEach((data,index)=>{
+                            op=document.createElement("option");
+                            op.innerHTML=data.naziv;
+                            host.querySelector(".selectNadjiPijacuNaziv").appendChild(op);    
+                            // i.appendChild(op);
+                        })
+                    }
+                })
+            }
+            else{
+                s.text().then(data=>{
+                    alert(data);
+                })
+            }
+        })
 
 
 
@@ -1043,12 +1099,13 @@ export class Sajt{
         host.querySelector(".divPijacaNadjiDugme").appendChild(btn);
 
         btn.onclick=(ev)=>{
-            let naziv1=host.querySelector(".inputNadjiPijacuNaziv").value;
-            if(naziv1===null || naziv1===undefined || naziv1===""){
-                alert("Neispravan naziv");
+            let pijacaSelect1 = host.querySelector(".selectNadjiPijacuNaziv");
+            let pijacaOpcija1 = pijacaSelect1.options[pijacaSelect1.selectedIndex].text;
+            if(pijacaOpcija1===null || pijacaOpcija1===undefined || pijacaOpcija1===""){
+                validacija+="Nevalidna pijaca\n";
             }
             else{
-                fetch("https://localhost:5001/Pijaca/PreuzmiPijacu/"+naziv1,
+                fetch("https://localhost:5001/Pijaca/PreuzmiPijacu/"+pijacaOpcija1,
                 {
                     method:"GET",
                 }).then(s=>{
@@ -1360,9 +1417,37 @@ export class Sajt{
                         host.querySelector(".divPijacaObrisiNaziv").appendChild(l);
                 
                         
-                        i=document.createElement("input");
-                        i.className="inputPijacaObrisiNaziv";
+                        i=document.createElement("select");
+                        i.className="selectNadjiPijacuNazivObrisi"
                         host.querySelector(".divPijacaObrisiNaziv").appendChild(i);
+
+                        let op;
+
+                        fetch("https://localhost:5001/Pijaca/PreuzmiPijace/",
+                        {
+                            method:"GET",
+                        }).then(s=>{
+                            if(s.ok){
+                                s.json().then(data1=>{
+                                    if(data1.length==0){
+                                        alert("Ne postoji nijedna pijaca!");
+                                    }
+                                    else{
+                                        data1.forEach((data,index)=>{
+                                            op=document.createElement("option");
+                                            op.innerHTML=data.naziv;
+                                            host.querySelector(".selectNadjiPijacuNazivObrisi").appendChild(op);    
+                                            // i.appendChild(op);
+                                        })
+                                    }
+                                })
+                            }
+                            else{
+                                s.text().then(data=>{
+                                    alert(data);
+                                })
+                            }
+                        })
                 
                 
                 
@@ -1388,98 +1473,100 @@ export class Sajt{
 
                         btn1.onclick=(ev)=>{
 
-                            let naziv1=host.querySelector(".inputPijacaObrisiNaziv").value;
-
-                            if(naziv1===null || naziv1===undefined || naziv1===""){
-                                validacija+="Neispravan\n";
+                            let pijacaSelect1 = host.querySelector(".selectNadjiPijacuNazivObrisi");
+                            let pijacaOpcija1 = pijacaSelect1.options[pijacaSelect1.selectedIndex].text;
+                            if(pijacaOpcija1===null || pijacaOpcija1===undefined || pijacaOpcija1===""){
+                                validacija+="Nevalidna pijaca\n";
                             }
-                            fetch("https://localhost:5001/Pijaca/PreuzmiPijacu/"+naziv1,
-                            {
-                                method:"GET"
-                            }).then(s=>{
-                                if(s.ok){
-                                    s.json().then(data=>{
-                                        const novaPijaca = new Pijaca(data.naziv, data.lokacija, data.adresa, data.telefon);
-                                        novaPijaca.crtajPijacu(this.kontejner.querySelector(".PrikazDesno")); 
+                            else{
+                                fetch("https://localhost:5001/Pijaca/PreuzmiPijacu/"+pijacaOpcija1,
+                                {
+                                    method:"GET"
+                                }).then(s=>{
+                                    if(s.ok){
+                                        s.json().then(data=>{
+                                            const novaPijaca = new Pijaca(data.naziv, data.lokacija, data.adresa, data.telefon);
+                                            novaPijaca.crtajPijacu(this.kontejner.querySelector(".PrikazDesno")); 
 
-                                        host.querySelector(".inputPijacaObrisiNaziv").disabled=true;
-                                        host.querySelector(".inputPijacaObrisiNaziv").style.cursor="not-allowed";
+                                            host.querySelector(".selectNadjiPijacuNazivObrisi").disabled=true;
+                                            host.querySelector(".selectNadjiPijacuNazivObrisi").style.cursor="not-allowed";
 
-                                        host.querySelector(".btnObrisiSelect").disabled=true;
-                                        host.querySelector(".btnObrisiSelect").style.cursor="not-allowed";
-
-
-                                        host.querySelector(".divPijacaObrisiDole1").innerHTML="";
-
-                                        d=document.createElement("div");
-                                        d.className="divLabelaObrisiPijacu";
-                                        host.querySelector(".divPijacaObrisiDole1").appendChild(d);
-
-                                        l=document.createElement("label");
-                                        l.innerHTML="Da li ste sigurni?"
-                                        l.className="lblPrikazLevoNaslov";
-                                        host.querySelector(".divLabelaObrisiPijacu").appendChild(l);
+                                            host.querySelector(".btnObrisiSelect").disabled=true;
+                                            host.querySelector(".btnObrisiSelect").style.cursor="not-allowed";
 
 
+                                            host.querySelector(".divPijacaObrisiDole1").innerHTML="";
 
+                                            d=document.createElement("div");
+                                            d.className="divLabelaObrisiPijacu";
+                                            host.querySelector(".divPijacaObrisiDole1").appendChild(d);
 
-
-                                        d=document.createElement("div");
-                                        d.className="divObrisiPijacuDugmici";
-                                        host.querySelector(".divPijacaObrisiDole1").appendChild(d);
-
-                                        d=document.createElement("div");
-                                        d.className="divObrisiPijacuDugmiciPotvrdi";
-                                        host.querySelector(".divObrisiPijacuDugmici").appendChild(d);
-
-                                        d=document.createElement("div");
-                                        d.className="divObrisiPijacuDugmiciPonisti";
-                                        host.querySelector(".divObrisiPijacuDugmici").appendChild(d);
+                                            l=document.createElement("label");
+                                            l.innerHTML="Da li ste sigurni?"
+                                            l.className="lblPrikazLevoNaslov";
+                                            host.querySelector(".divLabelaObrisiPijacu").appendChild(l);
 
 
 
 
-                                        let btnPotvrdi=document.createElement("button");
-                                        btnPotvrdi.className="divObrisiPijacuPotvrdi";
-                                        btnPotvrdi.innerHTML="Potvrdi";
-                                        host.querySelector(".divObrisiPijacuDugmiciPotvrdi").appendChild(btnPotvrdi);
 
-                                        let btnPonisti=document.createElement("button");
-                                        btnPonisti.className="btnObrisiPijacuPonisti";
-                                        btnPonisti.innerHTML="Ponisti";
-                                        host.querySelector(".divObrisiPijacuDugmiciPotvrdi").appendChild(btnPonisti);
+                                            d=document.createElement("div");
+                                            d.className="divObrisiPijacuDugmici";
+                                            host.querySelector(".divPijacaObrisiDole1").appendChild(d);
+
+                                            d=document.createElement("div");
+                                            d.className="divObrisiPijacuDugmiciPotvrdi";
+                                            host.querySelector(".divObrisiPijacuDugmici").appendChild(d);
+
+                                            d=document.createElement("div");
+                                            d.className="divObrisiPijacuDugmiciPonisti";
+                                            host.querySelector(".divObrisiPijacuDugmici").appendChild(d);
 
 
-                                        btnPotvrdi.onclick=(ev)=>{
-                                            fetch("https://localhost:5001/Pijaca/ObrisiPijacu/"+naziv1,
-                                            {
-                                                method:"DELETE"
-                                            }).then(s=>{
-                                                if(s.ok){
-                                                    this.kontejner.querySelector(".PrikazDesno").innerHTML="";
-                                                    this.crtaj(this.kontejner);
-                                                    alert("Pijaca uspesno obrisana");
-                                                }
-                                                else{
-                                                    s.text().then(data=>{
-                                                        alert(data);
-                                                    })
-                                                }
-                                            })
-                                        }
-                                        
-                                        btnPonisti.onclick=(ev)=>{
-                                            this.kontejner.querySelector(".PrikazDesno").innerHTML="";
-                                            this.obrisiPijacu(host);                            
-                                        }
-                                    })
-                                }
-                                else{
-                                    s.text().then(data=>{
-                                        alert(data);
-                                    })
-                                }
-                            })
+
+
+                                            let btnPotvrdi=document.createElement("button");
+                                            btnPotvrdi.className="divObrisiPijacuPotvrdi";
+                                            btnPotvrdi.innerHTML="Potvrdi";
+                                            host.querySelector(".divObrisiPijacuDugmiciPotvrdi").appendChild(btnPotvrdi);
+
+                                            let btnPonisti=document.createElement("button");
+                                            btnPonisti.className="btnObrisiPijacuPonisti";
+                                            btnPonisti.innerHTML="Ponisti";
+                                            host.querySelector(".divObrisiPijacuDugmiciPotvrdi").appendChild(btnPonisti);
+
+
+                                            btnPotvrdi.onclick=(ev)=>{
+                                                fetch("https://localhost:5001/Pijaca/ObrisiPijacu/"+pijacaOpcija1,
+                                                {
+                                                    method:"DELETE"
+                                                }).then(s=>{
+                                                    if(s.ok){
+                                                        this.kontejner.querySelector(".PrikazDesno").innerHTML="";
+                                                        this.crtaj(this.kontejner);
+                                                        alert("Pijaca uspesno obrisana");
+                                                    }
+                                                    else{
+                                                        s.text().then(data=>{
+                                                            alert(data);
+                                                        })
+                                                    }
+                                                })
+                                            }
+                                            
+                                            btnPonisti.onclick=(ev)=>{
+                                                this.kontejner.querySelector(".PrikazDesno").innerHTML="";
+                                                this.obrisiPijacu(host);                            
+                                            }
+                                        })
+                                    }
+                                    else{
+                                        s.text().then(data=>{
+                                            alert(data);
+                                        })
+                                    }
+                                })
+                            }
                         }
 
 

@@ -219,6 +219,19 @@ namespace Web_Projekat_18036.Controllers
                     return BadRequest("Pijaca ne postoji");
                 }
 
+                var automobiliNaPIjaci = await Context.Automobili.Where(p=>p.pijacaLokacija.naziv==nazivPijace).ToListAsync();
+
+                automobiliNaPIjaci.ForEach(p=> Context.Automobili.Remove(p));
+
+
+
+                var oglasiNaPijaci = await Context.Oglasi.Where(p=>p.pijaca.naziv==nazivPijace).ToListAsync();
+
+                oglasiNaPijaci.ForEach(p=> Context.Oglasi.Remove(p));
+
+
+
+
                 Context.Pijace.Remove(probnaPijaca);
 
                 await Context.SaveChangesAsync();
